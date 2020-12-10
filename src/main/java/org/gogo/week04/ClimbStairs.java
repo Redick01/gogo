@@ -57,6 +57,7 @@ public class ClimbStairs {
             p = q;
             q = r;
             r = p + q;
+
         }
         return r;
     }
@@ -75,6 +76,7 @@ public class ClimbStairs {
         int[] db = new int[n + 1];
         db[0] = 1;
         db[1] = 1;
+
         for (int i = 2; i <= n; i++) {
             db[i] = db[i - 1] + db[i - 2];
         }
