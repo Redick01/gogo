@@ -37,6 +37,11 @@ public class Sort {
         return left;
     }
 
+    /**
+     * 计数排序
+     * @param n
+     * @return
+     */
     public static int[] countingSort(int[] n) {
         // 找到待排序数组中最大值
         int max = Integer.MIN_VALUE;
@@ -56,6 +61,39 @@ public class Sort {
         for (int i=0; i<count.length; i++) {
             while (count[i]>0) {
                 result[index++] = i;
+                count[i]--;
+            }
+        }
+        // 返回结果数组
+        return result;
+    }
+
+    /**
+     * 优化后的计数排序
+     * @param n
+     * @return
+     */
+    public static int[] countingSort2(int[] n) {
+        // 找到待排序数组中最大值
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for (int a : n) {
+            max = Math.max(max, a);
+            min = Math.min(min, a);
+        }
+        // 创建中间数组，数组长度最大值+1
+        int[] count = new int[max - min + 1];
+        for (int a : n) {
+            count[a - min]++;
+        }
+        // 创建结果数组
+        int[] result = new int[n.length];
+        // 创建结果数组的起始索引
+        int index = 0;
+        // 遍历计数数组，将计数数组的索引填充到结果数组中
+        for (int i=0; i<count.length; i++) {
+            while (count[i]>0) {
+                result[index++] = i + min;
                 count[i]--;
             }
         }
