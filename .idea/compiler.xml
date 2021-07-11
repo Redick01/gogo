@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="gogo" target="1.5" />
+      <module name="gogo" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -26,7 +26,7 @@ package org.gogo.week04;
 public class ClimbStairs {
 
     public static void main(String[] args) {
-        System.out.println(climbStairs2(5));
+        System.out.println(times_2(5));
     }
 
     /**
@@ -39,6 +39,21 @@ public class ClimbStairs {
             return n;
         }
         return climbStairs(n - 1) + climbStairs(n - 2);
+    }
+
+    public static int times_2(int n) {
+        // 不使用Fibo
+        if (n <= 2) {
+            return n;
+        }
+        // f3 是结果
+        int f1 = 1, f2 = 2, f3 = 3;
+        for (int i = 3; i < n + 1; ++i) {
+            f3 = f1 + f2;
+            f1 = f2;
+            f2 = f3;
+        }
+        return f3;
     }
 
     /**
