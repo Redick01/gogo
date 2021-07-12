@@ -1,11 +1,96 @@
 package org.gogo.week02;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class RemoveDuplicates {
 
     public static void main(String[] args) {
         int[] nums = {1,1,2,2,3,3,4,5};
-        System.out.println(removeDuplicates(nums));
-        System.out.println(getRabbitNum(6));
+        System.out.println(test5(nums));
+        //System.out.println(getRabbitNum(6));
+    }
+
+    public static int test5(int[] nums) {
+        int len = nums.length;
+        if (len == 0) {
+            return 0;
+        }
+        // 慢指针
+        int index = 0;
+        for (int i = 1; i < len; i++) {
+            // 慢指针元素不等于快指针元素，慢指针就向右移动，移动位置的元素的值就是快指针的元素值
+            // 相等的不处理，相当于过滤掉
+            if (nums[index] != nums[i]) {
+                index++;
+                nums[index] = nums[i];
+            }
+        }
+        // 慢指针是数组索引，所以慢指针+1就是去重后数组元素数
+        return index + 1;
+    }
+
+    public static int test4(int[] nums) {
+        int len = nums.length;
+        if (len == 0) {
+            return 0;
+        }
+        int index = 0;
+        for (int i = 1; i < len; i++) {
+            if (nums[index] != nums[i]) {
+                index++;
+                nums[index] = nums[i];
+            }
+        }
+        return index + 1;
+    }
+
+    public static int test3(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        int index = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != nums[index]) {
+                index++;
+                nums[index] = nums[i];
+            }
+        }
+        return index + 1;
+    }
+
+    /**
+     * 当两个两个位置元素不相等时，将慢指针前移，并将i指针处元素赋值给快指针count处，然后快指针继续，去重数组的元素数就等于指针count+1
+     *             因为count起始是0，去重的元素就分布在0到count指针处元素，其余位置存的是没有被覆盖的重复值
+     * @param nums
+     * @return
+     */
+    public static int test2(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        // 慢指针
+        int index = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[index]) {
+                index++;
+                nums[index] = nums[i];
+            }
+        }
+        return index + 1;
+    }
+
+    /**
+     * 方法1 利用哈希表，时间复杂度O(n)
+     * @param nums
+     * @return
+     */
+    public static int plan1(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int i : nums) {
+            set.add(i);
+        }
+        return set.size();
     }
 
     /**
