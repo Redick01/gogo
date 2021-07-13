@@ -10,7 +10,33 @@ public class LargestRectangleArea {
 
     public static void main(String[] args) {
         int[] height = {6,7,5,2,4,5,9,3};
-        System.out.println(test3(height));
+        System.out.println(test4(height));
+    }
+
+    public static int test4(int[] nums) {
+        int len = nums.length;
+        if (len == 0) {
+            return 0;
+        }
+        if (len == 1) {
+            return nums[0];
+        }
+        int[] newNums = new int[len + 2];
+        System.arraycopy(nums, 0, newNums, 1, len);
+        len += 2;
+        Stack<Integer> stack = new Stack<>();
+        stack.add(0);
+        nums = newNums;
+        int maxArea = 0;
+        for (int i = 1; i < len; i++) {
+            while (!stack.isEmpty() && nums[stack.peek()] > nums[i]) {
+                int height = nums[stack.pop()];
+                int width = i - stack.peek() - 1;
+                maxArea = Math.max(maxArea, height * width);
+            }
+            stack.add(i);
+        }
+        return maxArea;
     }
 
     public static int test3(int[] heights) {
