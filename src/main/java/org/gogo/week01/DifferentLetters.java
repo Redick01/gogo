@@ -6,6 +6,7 @@ public class DifferentLetters {
 
 
 
+
     public static boolean isDifferentLetters(String s, String t) {
         // 如果长度字符串长度不同，不是字母异位词
         if (s.length() != t.length()) {

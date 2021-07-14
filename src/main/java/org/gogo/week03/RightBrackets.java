@@ -1,8 +1,6 @@
 package org.gogo.week03;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 有效括号
@@ -17,8 +15,53 @@ import java.util.Map;
  */
 public class RightBrackets {
 
+    public static boolean test3(String s) {
+        if (s.length() % 2 != 0) {
+            return false;
+        }
+        Map<Character, Character> dic = new HashMap<>();
+        dic.put('(', ')');
+        dic.put('[', ']');
+        dic.put('{', '}');
+        dic.put('?', '?');
+        Deque<Character> deque = new ArrayDeque<>();
+        deque.addLast('?');
+        for (char c : s.toCharArray()) {
+            if (dic.containsKey(c)) {
+                deque.addLast(c);
+            } else if (dic.get(deque.removeLast()) != c) {
+                return false;
+            }
+        }
+        return deque.size() == 1;
+    }
+
     public static void main(String[] args) {
-        System.out.println(isValid("()"));
+        System.out.println(test3("()"));
+    }
+
+    public static boolean test1(String s) {
+        // 奇数长度，不可能是有效括号
+        if (s.length() % 2 != 0) {
+            return false;
+        }
+        // 用哈希表存储有效括号对
+        Map<Character, Character> dic = new HashMap<>();
+        dic.put('(', ')');
+        dic.put('[', ']');
+        dic.put('{', '}');
+        dic.put('?', '?');
+        // 双端队列用于有效括号的做括号
+        Deque<Character> deque = new ArrayDeque<>();
+        deque.addFirst('?');
+        for (char c : s.toCharArray()) {
+            if (dic.containsKey(c)) {
+                deque.addLast(c);
+            } else if (dic.get(deque.removeLast()) != c) {
+                return false;
+            }
+        }
+        return deque.size() == 1;
     }
 
     public static boolean isValid(String s) {

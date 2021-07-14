@@ -2,6 +2,7 @@ package org.gogo.week06;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * @author liupenghui
@@ -12,11 +13,46 @@ public class TrappingRainWater {
 
     public static void main(String[] args) {
         int[] nums = {4, 2, 0, 3, 2, 5};
-        System.out.println(plan1(nums));
+        System.out.println(plan2(nums));
     }
 
     /**
-     * 暴力解法
+     * 使用队列存储单调递减的条形
+     * @param nums
+     * @return
+     */
+    public static int plan2(int[] nums) {
+        if (nums.length <= 2) {
+            return 0;
+        }
+        int maxArea = 0;
+        // 单调递减队列，存储递减数组元素的下标
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < nums.length; i++) {
+            // 队列元素小于枚举元素就开始计算面积
+            while (!stack.isEmpty() && nums[i] > nums[stack.peek()]) {
+                int top = stack.pop();
+                // 如果队列空了，跳出循环
+                if (stack.isEmpty()) {
+                    break;
+                }
+                int left = stack.peek();
+                // 最小条形高
+                int minH = Math.min(nums[i], nums[left]) - nums[top];
+                // 当前条形宽
+                int currW = i - left - 1;
+                maxArea += minH * currW;
+            }
+            stack.push(i);
+        }
+        return maxArea;
+    }
+
+    /**
+     * 暴力解法-时间复杂度高
+     * 1、枚举每一个元素，找到元素左边最大条形图和右边最大条形图，取最小的条形图减去当前元素就是该元素所能接住的水量
+     * 2、将每一个元素能接到的最大水量加起来就是接水量，画个图就能明白
+     * 3、注意，枚举的元素不包含数组首尾元素
      * @param height
      * @return
      */
@@ -40,9 +76,8 @@ public class TrappingRainWater {
         return maxArea;
     }
 
-
     public static int trap(int[] height) {
-        int ans = 0;
+        int maxArea = 0;
         Deque<Integer> stack = new LinkedList<>();
         int n = height.length;
         for (int i = 0; i < n; ++i) {
@@ -54,10 +89,10 @@ public class TrappingRainWater {
                 int left = stack.peek();
                 int currWidth = i - left - 1;
                 int currHeight = Math.min(height[left], height[i]) - height[top];
-                ans += currWidth * currHeight;
+                maxArea += currWidth * currHeight;
             }
             stack.push(i);
         }
-        return ans;
+        return maxArea;
     }
 }

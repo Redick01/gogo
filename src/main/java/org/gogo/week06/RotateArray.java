@@ -2,6 +2,7 @@ package org.gogo.week06;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Stack;
 
 /**
  * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
@@ -39,8 +40,7 @@ import java.util.Deque;
 public class RotateArray {
 
     public static void main(String[] args) {
-        int[] nums = {1, 2};
-        nums = plan1(nums, 5);
+        int[] nums = {1,2,3,4,5,6,7};
         for (int i : nums) {
             System.out.println(i);
         }
@@ -55,23 +55,30 @@ public class RotateArray {
         if (nums.length == 1 || nums.length == k) {
             return nums;
         }
+        // 当k大于数组长度的时候，计算真正的旋转步长
         if (nums.length < k) {
             k = k % nums.length;
         }
         // 开一个新数组
         int[] newNums = new int[nums.length];
         Deque<Integer> stack = new ArrayDeque<>();
+        // 用栈存储数组步长元素的剩余元素
         for (int i = nums.length - k; i < nums.length; i++) {
             stack.add(nums[i]);
         }
+        // 计算数组中剩余元素数
         int index = nums.length -k;
+        // 将数组中剩余元素拷贝到新数组旋转的对应位置
         for (int i = 0; i < index; i ++) {
             newNums[k++] = nums[i];
         }
+        // 栈中的元素数，就是要从新数组起始位置
         int size = stack.size();
+        // 将栈中元素在存到新数组中
         for (int i = 0; i < size; i++) {
             newNums[i] = stack.pollFirst();
         }
+        // 将新数组元素拷贝到nums中
         System.arraycopy(newNums, 0, nums, 0, nums.length);
         return nums;
     }
