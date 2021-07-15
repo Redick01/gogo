@@ -1,5 +1,6 @@
 package org.gogo.week06;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Stack;
@@ -13,7 +14,81 @@ public class TrappingRainWater {
 
     public static void main(String[] args) {
         int[] nums = {4, 2, 0, 3, 2, 5};
-        System.out.println(plan2(nums));
+        System.out.println(test4(nums));
+    }
+
+
+    public static int test4(int[] nums) {
+        if (nums.length <= 2) {
+            return 0;
+        }
+        int area = 0;
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < nums.length; i++) {
+            while (!stack.isEmpty() && nums[i] > nums[stack.peek()]) {
+                int top = stack.pop();
+                if (stack.isEmpty()) {
+                    break;
+                }
+                int left = stack.peek();
+                // 能盛水的高度
+                int minH = Math.min(nums[left], nums[i]) - nums[top];
+                int minW = i - left - 1;
+                area += minH * minW;
+            }
+            stack.push(i);
+        }
+        return area;
+    }
+
+
+    public static int test3(int[] nums) {
+        if (nums.length <= 2) {
+            return 0;
+        }
+        int maxArea = 0;
+        // 存储数组下标
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < nums.length; i++) {
+            while (!stack.isEmpty() && nums[i] > nums[stack.peek()]) {
+                int top = stack.pop();
+                if (stack.isEmpty()) {
+                    break;
+                }
+                int left = stack.peek();
+                int minH = Math.min(nums[i], nums[left]) - nums[top];
+                int minW = i - left - 1;
+                maxArea += minH * minW;
+            }
+            stack.push(i);
+        }
+        return maxArea;
+    }
+
+
+    public static int test2(int[] nums) {
+        if (nums.length <= 2) {
+            return 0;
+        }
+        int maxArea = 0;
+
+        // 存储数组下标
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int i= 0; i < nums.length; i++) {
+            while (!deque.isEmpty() && nums[i] > nums[deque.getLast()]) {
+                int top = deque.removeLast();
+                if (deque.isEmpty()) {
+                    break;
+                }
+                int left = deque.getLast();
+                int minH = Math.min(nums[i], nums[left]) - nums[top];
+                int minW = i - left - 1;
+                maxArea += minH * minW;
+            }
+            deque.addLast(i);
+        }
+
+        return maxArea;
     }
 
     /**

@@ -28,7 +28,19 @@ public class TwoSum {
 
     public static void main(String[] args) {
         int [] nums = {2,7,11,15};
-        test2(nums, 9);
+        test3(nums, 9);
+    }
+
+    public static int[] test3(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>(nums.length);
+        for (int i = 0; i < nums.length; i++) {
+            int value = target - nums[i];
+            if (map.containsKey(value)) {
+                return new int[]{map.get(value), i};
+            }
+            map.put(nums[i], i);
+        }
+        throw new IllegalArgumentException("not exit value");
     }
 
     public static int[] test2(int[] nums, int target) {
@@ -63,6 +75,18 @@ public class TwoSum {
             }
         }
         return r;
+    }
+
+    public static int[] test4(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>(nums.length);
+        for (int i = 0; i < nums.length; i++) {
+            int value = target - nums[i];
+            if (map.containsKey(value)) {
+                return new int[]{map.get(value), i};
+            }
+            map.put(nums[i], i);
+        }
+        throw new IllegalArgumentException("not exist value");
     }
 
     /**

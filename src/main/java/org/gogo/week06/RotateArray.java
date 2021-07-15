@@ -39,10 +39,46 @@ import java.util.Stack;
  */
 public class RotateArray {
 
+
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,5,6,7};
+        plan1(nums, 8);
         for (int i : nums) {
             System.out.println(i);
+        }
+    }
+
+    /**
+     * 1、开一个新数组用于存储临时结果
+     * 2、遍历原数组，计算出旋转后元素中在数组中的位置并赋值，位置=(i + k) % len
+     * 3、将临时数组copy到原数组中
+     * @param nums
+     * @param k
+     */
+    public static int[] plan2(int[] nums, int k) {
+        int len = nums.length;
+        int[] newNums = new int[len];
+        for (int i = 0; i < len; i++) {
+            newNums[(i + k) % len] = nums[i];
+        }
+        System.arraycopy(newNums, 0, nums, 0, len);
+        return nums;
+    }
+
+    public static void plan3(int[] nums, int k) {
+        k %= nums.length;
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, nums.length - 1);
+    }
+
+    private static void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start += 1;
+            end -= 1;
         }
     }
 
@@ -67,7 +103,7 @@ public class RotateArray {
             stack.add(nums[i]);
         }
         // 计算数组中剩余元素数
-        int index = nums.length -k;
+        int index = nums.length - k;
         // 将数组中剩余元素拷贝到新数组旋转的对应位置
         for (int i = 0; i < index; i ++) {
             newNums[k++] = nums[i];

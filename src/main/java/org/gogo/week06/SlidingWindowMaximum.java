@@ -11,7 +11,42 @@ public class SlidingWindowMaximum {
 
     public static void main(String[] args) {
         int[] nums = {1,3,-1,-3,5,3,6,7};
-        int[] max = test5(nums, 3);
+        int[] max = test7(nums, 3);
+    }
+
+    public static int[] test7(int[] nums, int k) {
+        int windowCount = nums.length - k + 1;
+        int[] result = new int[windowCount];
+        // 单调递增队列
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int i = 0; i < nums.length; i++) {
+            while (!deque.isEmpty() && nums[i] >= nums[deque.getFirst()]) {
+                deque.removeFirst();
+            }
+            deque.addLast(i);
+            int left = i - k + 1;
+            if (i + 1 >= k) {
+                result[left] = nums[deque.getFirst()];
+            }
+        }
+        return result;
+    }
+
+    public static int[] test6(int[] nums, int k) {
+        int windowCount = nums.length - k + 1;
+        int[] result = new int[windowCount];
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int i = 0; i < nums.length; i++) {
+            while (!deque.isEmpty() && nums[i] >= nums[deque.getFirst()]) {
+                deque.removeFirst();
+            }
+            deque.addLast(i);
+            int left = i - k + 1;
+            if (i + 1 >= k) {
+                result[left] = nums[deque.getFirst()];
+            }
+        }
+        return result;
     }
 
     public static int[] test5(int[] nums, int k) {
