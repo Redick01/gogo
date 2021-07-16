@@ -15,6 +15,24 @@ public class GroupAnagrams {
     }
 
     /**
+     * 排序法
+     * @param strs
+     * @return
+     */
+    public static List<List<String>> plan2(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String s : strs) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String s1 = new String(chars);
+            List<String> strings = map.getOrDefault(s1, new LinkedList<String>());
+            strings.add(s);
+            map.put(s1, strings);
+        }
+        return new LinkedList<>(map.values());
+    }
+
+    /**
      * 暴力法
      * @param strs
      * @return

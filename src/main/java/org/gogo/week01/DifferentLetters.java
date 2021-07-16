@@ -6,6 +6,10 @@ import java.util.Map;
 
 public class DifferentLetters {
 
+    public static void main(String[] args) {
+        System.out.println(plan2("eat", "tea"));
+    }
+
 
     /**
      * 巧妙的哈希表
