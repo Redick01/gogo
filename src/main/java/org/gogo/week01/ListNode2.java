@@ -17,6 +17,17 @@ public class ListNode2 {
         System.out.println(proxyServer);
     }
 
+    public static ListNode2 test2(ListNode2 head) {
+        ListNode2 cur = null, next = head;
+        while (next.next != null) {
+            ListNode2 t = head.next;
+            next.next = cur;
+            cur = next;
+            next = t;
+        }
+        return cur;
+    }
+
     /**
      * 使用额外容器
      * @param head
@@ -31,11 +42,28 @@ public class ListNode2 {
         }
         // 反转数组
         Collections.reverse(list);
-        for (ListNode2 listNode2 : list) {
-            head = listNode2;
-
+        int index = 0;
+        ListNode2 start = new ListNode2(0, new ListNode2(0));
+        ListNode2 temp = start;
+        for (ListNode2 node21 : list) {
+            temp.next = node21;
+            temp = temp.next;
         }
-        return head;
+        temp.next = null;
+        return start.next;
+    }
+
+    public static ListNode2 test1(ListNode2 head) {
+        // 双指针法
+        ListNode2 cur = null, pre = head;
+        // 遍历链表
+        while (pre.next != null) {
+            ListNode2 t = pre.next;
+            pre.next = cur;
+            cur = pre;
+            pre = t;
+        }
+        return cur;
     }
 
     /**
