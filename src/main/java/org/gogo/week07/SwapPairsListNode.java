@@ -10,6 +10,93 @@ import java.util.Stack;
  */
 public class SwapPairsListNode {
 
+    public static void main(String[] args) {
+        ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(2);
+        ListNode node3 = new ListNode(3);
+        ListNode node4 = new ListNode(4);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        test5(node1);
+    }
+
+    public static ListNode test5(ListNode head) {
+        ListNode dummyNode = new ListNode(-1);
+        dummyNode.next = head;
+        ListNode temp = dummyNode;
+        while (temp.next != null && temp.next.next != null) {
+            ListNode node1 = temp.next;
+            ListNode node2 = temp.next.next;
+            temp.next = node2;
+            node1.next = node2.next;
+            node2.next = node1;
+            temp = node1;
+        }
+        return dummyNode.next;
+    }
+
+    public static ListNode test4(ListNode head) {
+        // 创建哑节点
+        ListNode dummyNode = new ListNode(-1);
+        dummyNode.next = head;
+        // 临时节点
+        ListNode temp = dummyNode;
+        while (temp.next != null && temp.next.next != null) {
+            ListNode node1 = temp.next;
+            ListNode node2 = temp.next.next;
+            temp.next = node2;
+            node1.next = node2.next;
+            node2.next = node1;
+            temp = node1;
+        }
+        return dummyNode.next;
+    }
+
+    public static ListNode test1(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        // 以 1->2->3->4为例
+        //  记录 2
+        ListNode tmp = head.next;
+        // 递归处理 3 和 4，1指向3和4的处理结果，结果是1指向了4
+        head.next = test1(tmp.next);
+        // 2 指向 1 和 4 指向 3
+        tmp.next = head;
+        return tmp;
+    }
+
+    public static ListNode test2(ListNode listNode) {
+        if (listNode == null || listNode.next == null) {
+            return listNode;
+        }
+        ListNode tmp = listNode.next;
+        listNode.next = test2(listNode);
+        tmp.next = listNode;
+        return tmp;
+    }
+
+    public static ListNode test3(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode p = new ListNode(-1);
+        p.next = head;
+        ListNode cur = p;
+        ListNode net = p;
+        ListNode temp = p;
+        while (net.next != null && net.next.next != null) {
+            cur = cur.next;
+            net = net.next.next;
+            temp.next = net;
+            cur.next = net.next;
+            net.next = cur;
+            temp = cur;
+            net = cur;
+        }
+        return p.next;
+    }
 
     /**
      * 思路1，双指针前进法，两个指针cur和net，交换后要前进两步处理下两个节点
@@ -35,7 +122,7 @@ public class SwapPairsListNode {
             net = net.next.next;
             // temp 用于确定两组反转后的两个节点的指向关系，比如 1->4
             temp.next = net;
-            // 交换一组的两个节点，使 1->2 暂时变成 2->1-> 这里1指向的内容现在还没确认，下次迭代确认
+            // 交换一组的两个节点，使 1->2 暂时变成 2->1->3 这里1指向的内容现在还没确认，下次迭代确认
             cur.next = net.next;
             net.next = cur;
             // 现在链表就变成2->1->3->4
