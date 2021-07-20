@@ -12,6 +12,28 @@ import java.util.Stack;
  */
 public class InorderTraversal {
 
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(2);
+        TreeNode left = new TreeNode(1);
+        TreeNode right = new TreeNode(3);
+        root.left = left;
+        root.right = right;
+        plan2(root);
+    }
+
+    public static List<Integer> plan1Test1(TreeNode node) {
+        List<Integer> res = new ArrayList<>();
+        inorder1(node, res);
+        return res;
+    }
+
+    public static void inorder1(TreeNode node, List<Integer> res) {
+        // 左-根-右
+        inorder1(node.left, res);
+        res.add(node.val);
+        inorder1(node.right, res);
+    }
+
     /**
      * 方法1 递归
      * @param node
@@ -42,6 +64,7 @@ public class InorderTraversal {
         List<Integer> result = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
         while (root != null || !stack.isEmpty()) {
+            // 将左子树先放到栈中
             while (root != null) {
                 stack.push(root);
                 root = root.left;
@@ -52,5 +75,20 @@ public class InorderTraversal {
             root = root.right;
         }
         return result;
+    }
+
+    public static List<Integer> test2(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.add(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            res.add(root.val);
+            root = root.right;
+        }
+        return res;
     }
 }

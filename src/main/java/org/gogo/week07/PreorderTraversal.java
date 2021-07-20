@@ -12,6 +12,53 @@ import java.util.Stack;
  */
 public class PreorderTraversal {
 
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(2);
+        TreeNode left = new TreeNode(1);
+        TreeNode right = new TreeNode(3);
+        root.left = left;
+        root.right = right;
+        test2(root);
+    }
+
+    public static List<Integer> test1(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> res = new ArrayList<>();
+        TreeNode node = root;
+        while (node != null || !stack.isEmpty()) {
+            // 根-左-右
+            while (node != null) {
+                res.add(node.val);
+                stack.push(node);
+                node = node.left;
+            }
+            node = stack.pop();
+            node = node.right;
+        }
+        return res;
+    }
+
+    public static List<Integer> test2(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> res = new ArrayList<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            res.add(node.val);
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+
+        return res;
+    }
+
     public List<Integer> preOrderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         preOrder(root, res);
@@ -32,7 +79,7 @@ public class PreorderTraversal {
      * @param root
      * @return
      */
-    public List<Integer> plan1(TreeNode root) {
+    public static List<Integer> plan1(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
         TreeNode node = root;

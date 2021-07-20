@@ -21,6 +21,45 @@ public class SwapPairsListNode {
         test5(node1);
     }
 
+    public static ListNode test6(ListNode head) {
+        // 创建哑节点
+        ListNode dummyNode = new ListNode(-1);
+        // 哑节点指向链表头节点
+        dummyNode.next = head;
+        // 创建临时节点用于 确定 反转后的node指向
+        ListNode temp = dummyNode;
+        // 迭代处理
+        while (temp.next != null || temp.next.next != null) {
+            // 待处理的两个节点
+            ListNode node1 = temp.next;
+            ListNode node2 = temp.next.next;
+            // 临时节点指向 node2
+            temp.next = node2;
+            // 交换
+            node1.next = node2.next;
+            node2.next = node1;
+            //  临时节点指向处理后的node1，下次处理的节点是两个新的
+            temp = node1;
+        }
+        return dummyNode.next;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static ListNode test5(ListNode head) {
         ListNode dummyNode = new ListNode(-1);
         dummyNode.next = head;
