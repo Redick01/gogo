@@ -2,6 +2,7 @@ package org.gogo.week06;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Stack;
 
 /**
  * @author liupenghui
@@ -12,6 +13,25 @@ public class SlidingWindowMaximum {
     public static void main(String[] args) {
         int[] nums = {1,3,-1,-3,5,3,6,7};
         int[] max = test7(nums, 3);
+    }
+
+    public static int[] test8(int[] nums, int k) {
+        int windowCount = nums.length - k + 1;
+        int[] res = new int[windowCount];
+        // 单调递增队列存储数组下标
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int i = 0; i < nums.length; i++) {
+            while (!stack.isEmpty() && nums[i] >= nums[stack.getFirst()]) {
+                stack.removeFirst();
+            }
+            stack.addLast(i);
+            // 形成窗口
+            int left = i - k + 1;
+            if (i + 1 >= k) {
+                res[left] = nums[stack.getFirst()];
+            }
+        }
+        return res;
     }
 
     public static int[] test7(int[] nums, int k) {

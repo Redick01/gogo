@@ -29,6 +29,24 @@ public class NPostorderTraversal {
         plan2(node);
     }
 
+    public List<Integer> test1(Node root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        post(root, res);
+        return res;
+    }
+
+    private void post(Node root, List<Integer> res) {
+        for (Node node : root.children) {
+            if (node != null) {
+                post(node, res);
+            }
+        }
+        res.add(root.val);
+    }
+
     /**
      * 递归
      * @param root

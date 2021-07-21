@@ -21,6 +21,21 @@ public class PreorderTraversal {
         test2(root);
     }
 
+    public static List<Integer> test3(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> res = new ArrayList<>();
+        TreeNode node = root;
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
+                res.add(node.val);
+                node = node.left;
+            }
+            node = stack.pop();
+            node = node.right;
+        }
+        return res;
+    }
+
     public static List<Integer> test1(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         List<Integer> res = new ArrayList<>();

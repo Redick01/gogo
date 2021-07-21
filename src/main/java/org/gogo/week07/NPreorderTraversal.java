@@ -8,10 +8,32 @@ import java.util.Deque;
 import java.util.List;
 
 /**
+ * N叉树前序遍历
  * @author liupenghui
  * @date 2021/7/20 9:53 下午
  */
 public class NPreorderTraversal {
+
+    /**
+     * N叉树前序遍历 递归法
+     * @param root
+     * @return
+     */
+    public List<Integer> test1(Node root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        pre(root, res);
+        return res;
+    }
+
+    public void pre(Node node, List<Integer> res) {
+        res.add(node.val);
+        for (Node node1 : node.children) {
+            pre(node1, res);
+        }
+    }
 
     /**
      * 递归
