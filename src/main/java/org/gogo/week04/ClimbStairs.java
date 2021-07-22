@@ -26,7 +26,7 @@ package org.gogo.week04;
 public class ClimbStairs {
 
     public static void main(String[] args) {
-        System.out.println(times_2(5));
+        System.out.println(test1(5));
     }
 
     /**
@@ -39,6 +39,19 @@ public class ClimbStairs {
             return n;
         }
         return climbStairs(n - 1) + climbStairs(n - 2);
+    }
+
+    public static int test1(int n) {
+        if (n <= 2) {
+            return n;
+        }
+        int f1 = 1, f2 = 2, f3 = 3;
+        for (int i = 3; i < n + 1; ++i) {
+            f3 = f1 + f2;
+            f1 = f2;
+            f2 = f3;
+        }
+        return f3;
     }
 
     public static int times_2(int n) {

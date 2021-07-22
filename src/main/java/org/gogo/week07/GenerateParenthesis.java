@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * 数字 n 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+ * 数字n代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
  *
  *  
  *
@@ -23,7 +23,31 @@ import java.util.List;
 public class GenerateParenthesis {
 
     public static void main(String[] args) {
-        new GenerateParenthesis().generateParenthesis(3);
+        new GenerateParenthesis().test1(3);
+    }
+
+    public List<String> test1(int n) {
+        List<String> res = new ArrayList<>();
+        gen(0, 0, n, "", res);
+        return res;
+    }
+
+    private void gen(int left, int right, int n, String s, List<String> res) {
+        // 终止条件
+        if (left == n && right == n) {
+            res.add(s);
+            return;
+        }
+        // 当前层处理逻辑
+        // 左括号处理
+        if (left < n) {
+            // 进入下一层
+            gen(left + 1, right, n, s + "(", res);
+        }
+        // 右括号处理
+        if (left > right) {
+            gen(left, right + 1, n, s + ")", res);
+        }
     }
 
     /**
