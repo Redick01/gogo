@@ -9,6 +9,20 @@ import org.gogo.TreeNode;
  */
 public class ValidBST {
 
+    public boolean test1(TreeNode root) {
+        return test1(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private boolean test1(TreeNode root, int lower, int upper) {
+        if (root == null) {
+            return true;
+        }
+        if (root.val <= lower || root.val >= upper) {
+            return false;
+        }
+        return test1(root.left, lower, root.val) && test1(root.right, root.val, upper);
+    }
+
     /**
      * 二叉搜索树
      * 左子树所有节点均小于跟节点，右子树的所有节点均大于根节点

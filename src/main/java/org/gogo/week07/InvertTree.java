@@ -3,7 +3,6 @@ package org.gogo.week07;
 import org.gogo.TreeNode;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 反转二叉树
@@ -11,6 +10,21 @@ import java.util.List;
  * @date 2021/7/22 2:54 下午
  */
 public class InvertTree {
+
+    public TreeNode test1(TreeNode root) {
+        // 终止条件
+        if (root == null) {
+            return null;
+        }
+        // 当前层处理逻辑，左右子树交换
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        // 进入下一层，递归左右子树
+        test1(root.left);
+        test1(root.right);
+        return root;
+    }
 
     /**
      * 递归

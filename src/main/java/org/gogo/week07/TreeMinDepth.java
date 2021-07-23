@@ -11,6 +11,23 @@ import org.gogo.TreeNode;
  */
 public class TreeMinDepth {
 
+    public int test1(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        if (node.left == null && node.right == null) {
+            return 1;
+        }
+        int min = Integer.MIN_VALUE;
+        if (node.left != null) {
+            min = Math.min(min, test1(node.left));
+        }
+        if (node.right != null) {
+            min = Math.min(min, test1(node.right));
+        }
+        return min + 1;
+    }
+
     /**
      * 递归，深度优先遍历
      * @param root

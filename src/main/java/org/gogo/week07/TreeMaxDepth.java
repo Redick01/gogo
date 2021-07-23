@@ -18,6 +18,16 @@ public class TreeMaxDepth {
         System.out.println(maxDepth.maxDepth(root));
     }
 
+    public int test1(TreeNode root) {
+        if (root == null) {
+            return 0;
+        } else {
+            int left = test1(root.left);
+            int right = test1(root.right);
+            return Math.max(left, right) + 1;
+        }
+    }
+
     /**
      * 深度优先遍历
      *

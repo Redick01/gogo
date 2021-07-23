@@ -13,6 +13,37 @@ import java.util.Queue;
  */
 public class Codec {
 
+    public String serializeTest1(TreeNode root) {
+        // 终止条件
+        if (root == null) {
+            return "NULL";
+        }
+        return root.val + "," + serialize(root.left) + "," + serialize(root.right);
+    }
+
+    public TreeNode deserializeTest1(String data) {
+        LinkedList<String> dataList = new LinkedList<>(Arrays.asList(data.split(",")));
+        return deserializeTest1(dataList);
+    }
+
+    private TreeNode deserializeTest1(LinkedList<String> dataList) {
+        // 终止条件
+        String value = dataList.poll();
+        if ("NULL".equals(value)) {
+            return null;
+        }
+        // 当前层处理逻辑
+        TreeNode node = new TreeNode(Integer.parseInt(value));
+        // 进入下一层，处理左右子树
+        node.left = deserializeTest1(dataList);
+        node.right = deserializeTest1(dataList);
+        return node;
+    }
+
+
+
+
+
     /**
      * Encodes a tree to a single string.
      * 前序遍历实现序列化
