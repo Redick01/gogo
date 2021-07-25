@@ -1,0 +1,55 @@
+package org.gogo.week08;
+
+/**
+ * @author Redick
+ * @date 2021/7/25 10:26 上午
+ */
+public class PowXN {
+
+    public static void main(String[] args) {
+        System.out.println(new PowXN().plan2(1, -2147483648));
+    }
+
+
+    /**
+     * 暴力法
+     * @param x
+     * @param n
+     * @return
+     */
+    public double plan1(double x, int n) {
+        if (n < 0) {
+            return 1 / plan1(x, -n);
+        }
+        double result = 1;
+        for (int i = 0; i < n; i++) {
+            result *= x;
+        }
+        return result;
+    }
+
+    /**
+     * 分治
+     * 2^10 = 2^5 * 2^5
+     * 2^11 = 2^5 * 2^5 * 2
+     * 子问题：
+     * 当n为偶数时 pow(x, n) = pow(x, n / 2) * pow(x, n / 2)
+     * 当n为奇数时 pow(x, n) = pow(x, n / 2) * pow(x, n / 2) * 2
+     * @param x
+     * @param n
+     * @return
+     */
+    public double plan2(double x, int n) {
+        long a = n;
+        return a > 0 ? myPow(x, a) : 1.0 / myPow(x, -a);
+    }
+
+    private double myPow(double x, long n) {
+        // 终止条件
+        if (n == 0) {
+            return 1.0;
+        }
+        double result = myPow(x, n / 2);
+        return n % 2 == 0 ? result * result : result * result * x;
+    }
+}
