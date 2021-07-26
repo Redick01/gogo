@@ -10,6 +10,19 @@ public class PowXN {
         System.out.println(new PowXN().plan2(1, -2147483648));
     }
 
+    public double test(double x, int n) {
+        return n > 0 ? pow1(x, n) : 1.0 / pow1(x, -n);
+    }
+
+    private double pow1(double x, int a) {
+        // 终止条件
+        if (a == 0) {
+            return 1.0;
+        }
+        double result = pow1(x, a / 2);
+        return a % 2 == 0 ? result * result : result * result * x;
+    }
+
 
     /**
      * 暴力法
@@ -34,7 +47,7 @@ public class PowXN {
      * 2^11 = 2^5 * 2^5 * 2
      * 子问题：
      * 当n为偶数时 pow(x, n) = pow(x, n / 2) * pow(x, n / 2)
-     * 当n为奇数时 pow(x, n) = pow(x, n / 2) * pow(x, n / 2) * 2
+     * 当n为奇数时 pow(x, n) = pow(x, n / 2) * pow(x, n / 2) * x
      * @param x
      * @param n
      * @return
