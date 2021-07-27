@@ -102,6 +102,21 @@ public class SubSets {
         return result;
     }
 
+    public List<List<Integer>> test3(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        res.add(new ArrayList<>());
+        for(int num : nums) {
+            List<List<Integer>> newSubSets = new ArrayList<>();
+            for(List<Integer> subSet : res) {
+                List<Integer> newSubSet = new ArrayList<>(subSet);
+                newSubSet.add(num);
+                newSubSets.add(newSubSet);
+            }
+            res.addAll(newSubSets);
+        }
+        return res;
+    }
+
     List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> subsets(int[] nums) {
 

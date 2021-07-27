@@ -3,6 +3,7 @@ package org.gogo.week08;
 import java.util.*;
 
 /**
+ * 多数元素
  * @author Redick
  * @date 2021/7/25 6:40 下午
  */

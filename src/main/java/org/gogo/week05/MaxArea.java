@@ -13,6 +13,16 @@ public class MaxArea {
         System.out.println(maxArea.times_2(height));
     }
 
+    public int test1(int[] height) {
+        int maxArea = 0;
+        for (int i = 0, j = height.length - 1; i < j;) {
+            int minHeight = height[i] < height[j] ? height[i++] : height[j++];
+            maxArea = Math.max(maxArea, minHeight * (j - i + 1));
+        }
+        return maxArea;
+    }
+
+
     public int times_2(int[] height) {
         // 夹逼法
         int maxArea = 0;

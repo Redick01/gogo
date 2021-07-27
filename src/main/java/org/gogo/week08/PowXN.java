@@ -65,4 +65,20 @@ public class PowXN {
         double result = myPow(x, n / 2);
         return n % 2 == 0 ? result * result : result * result * x;
     }
+
+
+    /**
+     * 分治
+     */
+    public double test2(double x, int n) {
+        return n > 0 ? myPow(x, n) : 1.0 / myPow1(x, -n);
+    }
+
+    private double myPow1(double x, int n) {
+        if(n == 0) {
+            return 1.0;
+        }
+        double result = myPow1(x, n);
+        return n % 2 == 0  ? result * result : result * result * x;
+    }
 }
