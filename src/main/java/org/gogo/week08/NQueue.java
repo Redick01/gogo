@@ -9,7 +9,7 @@ import java.util.*;
 public class NQueue {
 
     public static void main(String[] args) {
-        new NQueue().solveNQueens(4);
+        new NQueue().test2(4);
     }
 
 
@@ -25,7 +25,7 @@ public class NQueue {
         Set<Integer> pie = new HashSet<>();
         // 捺集合
         Set<Integer> na = new HashSet<>();
-
+        dsf1(n, res, 0, queues, columns, pie, na);
         return res;
     }
 
@@ -130,5 +130,65 @@ public class NQueue {
             board.add(new String(row));
         }
         return board;
+    }
+
+    /**
+     * 回溯，n为皇后数
+     * @param n
+     * @return
+     */
+    public List<List<String>> test2(int n) {
+        List<List<String>> res = new ArrayList<>();
+        // 记录皇后在每一行的位置
+        int[] queues = new int[n];
+        // 给queues赋默认值
+        Arrays.fill(queues, -1);
+        Set<Integer> columns = new HashSet<>();
+        Set<Integer> pie = new HashSet<>();
+        Set<Integer> na = new HashSet<>();
+        dfs2(res, n, 0, queues, columns, pie, na);
+        return res;
+    }
+
+    private void dfs2(List<List<String>> res, int n, int row, int[] queues, Set<Integer> columns, Set<Integer> pie, Set<Integer> na) {
+        if (row == n) {
+            List<String> board = board1(queues, n);
+            res.add(board);
+            return;
+        } else {
+            for (int i = 0; i < n; i++) {
+                if (columns.contains(i)) {
+                    continue;
+                }
+                int pie1 = row + i;
+                if (pie.contains(pie1)) {
+                    continue;
+                }
+                int na1 = row - i;
+                if (na.contains(na1)) {
+                    continue;
+                }
+                queues[row] = i;
+                columns.add(i);
+                pie.add(pie1);
+                na.add(na1);
+                dfs2(res, n, row + 1, queues, columns, pie, na);
+                queues[row] = -1;
+                columns.remove(i);
+                pie.remove(pie1);
+                na.remove(na1);
+            }
+        }
+    }
+
+    private List<String> board1(int[] queues, int n) {
+        List<String> rowQ = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            char[] c = new char[n];
+            Arrays.fill(c, '.');
+            c[queues[i]] = 'Q';
+            rowQ.add(new String(c));
+        }
+        return rowQ;
     }
 }
