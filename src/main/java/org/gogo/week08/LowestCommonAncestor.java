@@ -3,6 +3,7 @@ package org.gogo.week08;
 import org.gogo.TreeNode;
 
 /**
+ * 二叉树的最近公共祖先
  * @author Redick
  * @date 2021/7/27 11:20 下午
  */
