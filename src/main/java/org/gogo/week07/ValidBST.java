@@ -9,6 +9,22 @@ import org.gogo.TreeNode;
  */
 public class ValidBST {
 
+    /**
+     * 练习2，练习递归函数
+     * @return
+     */
+    public boolean test2(TreeNode root, int low, int up) {
+        if (root == null) {
+            return true;
+        }
+        if (root.val <= low || root.val >= up) {
+            return false;
+        }
+        return test2(root.left, low, root.val) && test1(root.right, root.val, up);
+    }
+
+
+
     public boolean test1(TreeNode root) {
         return test1(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }

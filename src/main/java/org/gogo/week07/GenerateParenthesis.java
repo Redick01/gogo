@@ -23,8 +23,28 @@ import java.util.List;
 public class GenerateParenthesis {
 
     public static void main(String[] args) {
-        new GenerateParenthesis().test1(3);
+        new GenerateParenthesis().test2(3);
     }
+
+    public List<String> test2(int n) {
+        List<String> res = new ArrayList<>();
+        dfs(0, 0, n, res, "");
+        return res;
+    }
+
+    private void dfs(int left, int right, int n, List<String> res, String str) {
+        if (left == n && right == n) {
+            res.add(str);
+            return;
+        }
+        if (left < n) {
+            dfs(left + 1, right, n, res, str + "(");
+        }
+        if (right < left) {
+            dfs(left, right + 1, n, res, str + ")");
+        }
+    }
+
 
     public List<String> test1(int n) {
         List<String> res = new ArrayList<>();

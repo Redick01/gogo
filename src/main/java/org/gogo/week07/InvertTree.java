@@ -11,6 +11,19 @@ import java.util.LinkedList;
  */
 public class InvertTree {
 
+    public TreeNode test2(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        // 左右子树交换
+        TreeNode temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        test2(root.left);
+        test2(root.right);
+        return root;
+    }
+
     public TreeNode test1(TreeNode root) {
         // 终止条件
         if (root == null) {
