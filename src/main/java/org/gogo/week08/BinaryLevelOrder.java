@@ -2,10 +2,7 @@ package org.gogo.week08;
 
 import org.gogo.TreeNode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * 二叉树层序遍历
@@ -13,6 +10,32 @@ import java.util.Queue;
  * @date 2021/7/28 11:59 下午
  */
 public class BinaryLevelOrder {
+
+
+    public List<List<Integer>> plan(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        nodeQueue.add(root);
+        while (!nodeQueue.isEmpty()) {
+            int size = nodeQueue.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = nodeQueue.poll();
+                list.add(node.val);
+                if (node.left != null) {
+                    nodeQueue.add(node.left);
+                }
+                if (node.right != null) {
+                    nodeQueue.add(node.right);
+                }
+            }
+            res.add(list);
+        }
+        return res;
+    }
 
 
     /**

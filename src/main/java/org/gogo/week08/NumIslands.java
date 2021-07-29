@@ -38,9 +38,6 @@ package org.gogo.week08;
  */
 public class NumIslands {
 
-    char[][] g;
-    int[] dx = new int[]{-1, 1, 0, 0};
-    int[] dy = new int[]{0, 0, -1, 1};
 
     /**
      * 深度优先遍历
@@ -51,37 +48,73 @@ public class NumIslands {
     public int plan1(char[][] grid) {
         // 岛屿个数
         int nums = 0;
-        g = grid;
         // 遍历二维数组，如果是0就不处理直接continue，否则走到dfs算法中
-        for (int i = 0; i < g.length; i++) {
-            for (int j = 0; j < g[i].length; j++) {
-                if (g[i][j] == '0') {
-                    continue;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == '1') {
+                    nums += 1;
+                    dfs(i, j, grid);
                 }
-                nums += dfs(i, j);
+
             }
         }
         return nums;
     }
 
-    private int dfs(int i, int j) {
+    private void dfs(int i, int j, char[][] g) {
         // 终止条件
-        if (g[i][j] == '0') {
-            return 0;
+        int row = g.length;
+        int col = g[0].length;
+        // 终止条件
+        if (i < 0 || j < 0 || i >= row || j >= col || g[i][j] == '0') {
+            return;
         }
         // 将陆地淹没
         g[i][j] = '0';
-        for (int k = 0; k < dx.length; ++k) {
-            // 计算 g[i][j] 相邻的元素的坐标x y
-            int x = i + dx[k];
-            int y = j + dy[k];
-            if (x > 0 && x < g.length && y > 0 && y < g[i].length) {
-                if (g[x][y] == '0') {
-                    continue;
+        dfs(i + 1, j, g);
+        dfs(i - 1, j, g);
+        dfs(i, j + 1, g);
+        dfs(i, j - 1, g);
+    }
+
+    /**
+     * 算法的核心逻辑是当找到1（岛屿）的时候就将1改成0并递归的扩散有过有1就继续改成0，直到没有1，这个过程完成后次数+1，代表这就是一个岛屿
+     * @param grid
+     * @return
+     */
+    public int numIslands(char[][] grid) {
+        // 岛屿个数
+        int nums = 0;
+        if (null == grid || grid.length == 0) {
+            return nums;
+        }
+        int row = grid.length;
+        int col = grid[0].length;
+        // 遍历二维数组，如果是0就不处理直接continue，否则走到dfs算法中
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < col; ++j) {
+                if (grid[i][j] == '1') {
+                    ++nums;
+                    dfs(grid, i, j);
                 }
-                dfs(x, y);
             }
         }
-        return 1;
+        return nums;
+    }
+
+    private void dfs(char[][] grid, int i, int j) {
+        int row = grid.length;
+        int col = grid[0].length;
+        // 终止条件
+        if (i < 0 || j < 0 || i >= row || j >= col || grid[i][j] == '0') {
+            return;
+        }
+
+        // 将陆地淹没
+        grid[i][j] = '0';
+        dfs(grid, i - 1, j);
+        dfs(grid, i + 1, j);
+        dfs(grid, i, j - 1);
+        dfs(grid, i, j + 1);
     }
 }
