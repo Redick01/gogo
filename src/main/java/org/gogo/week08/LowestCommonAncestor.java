@@ -12,6 +12,22 @@ public class LowestCommonAncestor {
 
     TreeNode ans = null;
 
+    public TreeNode test2(TreeNode root, TreeNode p, TreeNode q) {
+        dfs3(root, p, q);
+        return ans;
+    }
+    private boolean dfs3(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return false;
+        }
+        boolean leftSon = dfs3(root.left, p, q);
+        boolean rightSon = dfs3(root.right, p, q);
+        if (leftSon || rightSon || ((root.val == p.val || root.val == q.val) && (leftSon || rightSon))) {
+            ans = root;
+        }
+        return leftSon || rightSon || ((root.left.val == p.val) || (root.right.val == q.val));
+    }
+
     public TreeNode test1(TreeNode root, TreeNode p, TreeNode q) {
         dfs2(root, p, q);
         return ans;

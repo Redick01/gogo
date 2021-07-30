@@ -38,6 +38,36 @@ package org.gogo.week08;
  */
 public class NumIslands {
 
+    public int test1(char[][] grid) {
+        // 岛屿个数
+        int nums = 0;
+
+        // 遍历二位数字，碰到1 就把 nums+1 并且递归往外层处理，处理逻辑就是将1都用水淹没成0
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    nums++;
+                    dfs1(i, j, grid);
+                }
+            }
+        }
+        return nums;
+    }
+
+    private void dfs1(int i, int j, char[][] grid) {
+        int col = grid[0].length;
+        int row = grid.length;
+        if (i < 0 || j < 0 || i >= row || j >= col || grid[i][j] == '0') {
+            return;
+        }
+        // 淹没
+        grid[i][j] = '0';
+        dfs1(i - 1, j, grid);
+        dfs1(i + 1, j, grid);
+        dfs1(i, j - 1, grid);
+        dfs1(i, j + 1, grid);
+    }
+
 
     /**
      * 深度优先遍历
@@ -62,7 +92,6 @@ public class NumIslands {
     }
 
     private void dfs(int i, int j, char[][] g) {
-        // 终止条件
         int row = g.length;
         int col = g[0].length;
         // 终止条件
