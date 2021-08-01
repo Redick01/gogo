@@ -45,4 +45,23 @@ public class NTreeLevelOrder {
             levelOrder(node1, level + 1);
         }
     }
+
+    public List<List<Integer>> test(Node root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        dfs(root, 0, res);
+        return res;
+    }
+
+    private void dfs(Node root, int level, List<List<Integer>> res) {
+        if (res.size() <= level) {
+            res.add(new ArrayList<>());
+        }
+        res.get(level).add(root.val);
+        for (Node cNode : root.children) {
+            dfs(cNode, level + 1, res);
+        }
+    }
 }

@@ -19,6 +19,7 @@ public class InorderTraversal {
         root.left = left;
         root.right = right;
         plan2(root);
+        new InorderTraversal().bfs(root);
     }
 
     public static List<Integer> plan1Test1(TreeNode node) {
@@ -126,4 +127,52 @@ public class InorderTraversal {
         }
         return res;
     }
+
+    /**
+     * 2021 08 01 练习，深度优先搜索
+     * @param root
+     */
+    public List<Integer> test(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        dfs(root, res);
+        return res;
+    }
+
+    private void dfs(TreeNode node, List<Integer> res) {
+        if (node == null) {
+            return;
+        }
+        // 左-根-右
+        dfs(node.left, res);
+        res.add(node.val);
+        dfs(node.right, res);
+    }
+
+    /**
+     * 广度优先遍历
+     * 思路是使用一个栈，栈的特性是先进后出，先讲根结点push栈中，接着处理左子树，左子树的所有节点都放到栈中，然后从栈中pop出节点，放到结果中，然后再将左子树也放大栈中，然后一直从栈中拿元素就行了
+     * @param root
+     * @return
+     */
+    public List<Integer> bfs(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            res.add(root.val);
+            root = root.right;
+        }
+        return res;
+    }
+
 }

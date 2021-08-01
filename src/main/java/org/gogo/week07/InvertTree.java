@@ -3,6 +3,7 @@ package org.gogo.week07;
 import org.gogo.TreeNode;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * 反转二叉树
@@ -10,6 +11,49 @@ import java.util.LinkedList;
  * @date 2021/7/22 2:54 下午
  */
 public class InvertTree {
+
+
+    public TreeNode bfs(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            // 左右子树交换
+            TreeNode temp = queue.poll();;
+            TreeNode left = temp.left;
+            temp.left = temp.right;
+            temp.right = left;
+            if (temp.left != null) {
+                queue.add(temp.left);
+            }
+            if (temp.right != null) {
+                queue.add(temp.right);
+            }
+        }
+        return root;
+    }
+
+    /**
+     * 反转二叉树练习，思路是左右子树交换，然后递归，继续左右子树交换
+     * @param root
+     * @return
+     */
+    public TreeNode test3(TreeNode root) {
+        // 终止条件
+        if (root == null) {
+            return null;
+        }
+        // 当前层逻辑，左右子树交换
+        TreeNode tempNode = root.left;
+        root.left = root.right;
+        root.right = tempNode;
+        // 继续左右子树交换
+        test3(root.left);
+        test3(root.right);
+        return root;
+    }
 
     public TreeNode test2(TreeNode root) {
         if (root == null) {

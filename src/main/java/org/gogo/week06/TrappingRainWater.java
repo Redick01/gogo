@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 /**
+ * 接雨水
  * @author liupenghui
  * @date 2021/7/13 5:13 下午
  */
@@ -117,6 +118,30 @@ public class TrappingRainWater {
                 // 当前条形宽
                 int currW = i - left - 1;
                 maxArea += minH * currW;
+            }
+            stack.push(i);
+        }
+        return maxArea;
+    }
+
+    public static int test5(int[] height) {
+        if (height.length <= 2) {
+            return 0;
+        }
+        int maxArea = 0;
+        // 单调递减队列，存储数组元素下标
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < height.length; i++) {
+            while (!stack.isEmpty() && height[i] >= height[stack.peek()]) {
+                int top = stack.pop();
+                if (stack.isEmpty()) {
+                    break;
+                }
+                int left = stack.peek();
+                int minH = Math.min(height[i], height[left]) - height[top];
+                // 宽
+                int wid = i - left - 1;
+                maxArea += minH * wid;
             }
             stack.push(i);
         }

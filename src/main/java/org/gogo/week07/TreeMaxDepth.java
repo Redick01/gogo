@@ -8,6 +8,20 @@ import org.gogo.TreeNode;
  */
 public class TreeMaxDepth {
 
+    /**
+     * 二叉树最大深度，深度优先搜索，求出左右子树最大深度，+1就是树的最大深度
+     * @param root
+     * @return
+     */
+    public int test2(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = test1(root.left);
+        int right = test1(root.right);
+        return Math.max(left, right) + 1;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(2);
         TreeNode left = new TreeNode(1);

@@ -71,6 +71,32 @@ public class GenerateParenthesis {
     }
 
     /**
+     * 递归
+     * @param n
+     * @return
+     */
+    public List<String> test3(int n) {
+        List<String> res = new ArrayList<>();
+        dfs3(0, 0, n, "", res);
+        return res;
+    }
+
+    private static void dfs3(int left, int right, int n, String str, List<String> res) {
+        // 递归终止条件
+        if (left == n && right == n) {
+            res.add(str);
+            return;
+        }
+        // 进入下一层，处理左右括号
+        if (left < n) {
+            dfs3(left + 1, right, n, str + "(", res);
+        }
+        if (left > right) {
+            dfs3(left, right + 1, n, str + ")", res);
+        }
+    }
+
+    /**
      * 递归法
      * @param n
      * @return

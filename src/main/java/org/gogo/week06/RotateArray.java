@@ -2,6 +2,7 @@ package org.gogo.week06;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -39,10 +40,39 @@ import java.util.Stack;
  */
 public class RotateArray {
 
+    public int[] test1(int[] nums, int k) {
+        int len = nums.length;
+        int[] newArray = new int[len];
+        for (int i = 0; i < len; i++) {
+            newArray[(i + k) % len] = nums[i];
+        }
+        System.arraycopy(newArray, 0, nums, 0, len);
+        return nums;
+    }
+
+    public int[] test2(int[] nums, int k) {
+        int len = nums.length;
+        k %= len;
+        reverse2(nums, 0, len - 1);
+        reverse2(nums, 0, k - 1);
+        reverse2(nums, k, len - 1);
+        return nums;
+    }
+
+    private void reverse2(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
 
     public static void main(String[] args) {
         int[] nums = {1,2,3,4,5,6,7};
-        plan1(nums, 8);
+        new RotateArray().test2(nums, 8);
         for (int i : nums) {
             System.out.println(i);
         }
@@ -65,6 +95,16 @@ public class RotateArray {
         return nums;
     }
 
+    /**
+     * 方案3 原数组元素双指针交换
+     * 1. 重新计算一下k，因为有可能大于数组长度，所以有效的k应该等于 k % len
+     * 2. 先从0 到 len开始交换
+     * 3. 然后交换 0 到 k - 1 位置
+     * 4. 最后交换 k 到 len - 1位置
+     * 5. 注意，这里采用的是双指针交换，没交换一次start前进一步，end后退一步
+     * @param nums
+     * @param k
+     */
     public static void plan3(int[] nums, int k) {
         k %= nums.length;
         reverse(nums, 0, nums.length - 1);

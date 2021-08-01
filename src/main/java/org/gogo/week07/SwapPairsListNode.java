@@ -2,6 +2,7 @@ package org.gogo.week07;
 
 import org.gogo.ListNode;
 
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -21,6 +22,28 @@ public class SwapPairsListNode {
         test5(node1);
     }
 
+    public static ListNode test7(ListNode head) {
+        ListNode dummyNode = new ListNode(-1);
+        dummyNode.next = head;
+        // 临时节点
+        ListNode temp = dummyNode;
+        // 迭代
+        while (temp.next != null && temp.next.next != null) {
+            ListNode node1 = temp.next;
+            ListNode node2 = temp.next.next;
+            temp.next = node2;
+            node1.next = node2.next;
+            node2.next = node1;
+            temp = node1;
+        }
+        return dummyNode.next;
+    }
+
+
+
+
+
+
     public static ListNode test6(ListNode head) {
         // 创建哑节点
         ListNode dummyNode = new ListNode(-1);
@@ -29,7 +52,7 @@ public class SwapPairsListNode {
         // 创建临时节点用于 确定 反转后的node指向
         ListNode temp = dummyNode;
         // 迭代处理
-        while (temp.next != null || temp.next.next != null) {
+        while (temp.next != null && temp.next.next != null) {
             // 待处理的两个节点
             ListNode node1 = temp.next;
             ListNode node2 = temp.next.next;
@@ -43,22 +66,6 @@ public class SwapPairsListNode {
         }
         return dummyNode.next;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public static ListNode test5(ListNode head) {
         ListNode dummyNode = new ListNode(-1);
@@ -91,6 +98,18 @@ public class SwapPairsListNode {
         }
         return dummyNode.next;
     }
+
+    public ListNode test8(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode temp = head.next;
+        head.next = test8(temp.next);
+        temp.next = head;
+        return temp;
+    }
+
+
 
     public static ListNode test1(ListNode head) {
         if (head == null || head.next == null) {

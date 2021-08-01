@@ -11,7 +11,22 @@ public class GroupAnagrams {
 
     public static void main(String[] args) {
         String[] strs = new String[]{"eat", "tea", "tan", "ate", "nat", "bat"};
-        groupAnagrams(strs);
+        System.out.println(groupAnagrams(strs).toString());
+        System.out.println(new GroupAnagrams().test1(strs).toString());
+    }
+
+    public List<List<String>> test1(String[] strings) {
+        // 排序后字母字符串和排序前字符串列表映射关系
+        Map<String, List<String>> map = new HashMap<>();
+        for (String s : strings) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String s1 = new String(chars);
+            List<String> stringList = map.getOrDefault(s1, new ArrayList<>());
+            stringList.add(s);
+            map.put(s1, stringList);
+        }
+        return new ArrayList<>(map.values());
     }
 
     /**

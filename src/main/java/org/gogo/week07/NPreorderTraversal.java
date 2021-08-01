@@ -2,10 +2,7 @@ package org.gogo.week07;
 
 import org.gogo.Node;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * N叉树前序遍历
@@ -14,26 +11,7 @@ import java.util.List;
  */
 public class NPreorderTraversal {
 
-    /**
-     * N叉树前序遍历 递归法
-     * @param root
-     * @return
-     */
-    public List<Integer> test1(Node root) {
-        List<Integer> res = new ArrayList<>();
-        if (root == null) {
-            return res;
-        }
-        pre(root, res);
-        return res;
-    }
 
-    public void pre(Node node, List<Integer> res) {
-        res.add(node.val);
-        for (Node node1 : node.children) {
-            pre(node1, res);
-        }
-    }
 
     /**
      * 递归
@@ -77,6 +55,42 @@ public class NPreorderTraversal {
             // 逆序入栈
             for (int i = cur.children.size() - 1; i >= 0; --i) {
                 deque.addLast(cur.children.get(i));
+            }
+        }
+        return res;
+    }
+
+    public List<Integer> test1(Node root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        dfs(root, res);
+        return res;
+    }
+
+    private void dfs(Node root, List<Integer> res) {
+        res.add(root.val);
+        for (Node node : root.children) {
+            if (node != null) {
+                dfs(node, res);
+            }
+        }
+    }
+
+    public List<Integer> test2(Node root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
+            res.add(node.val);
+            // 孩子逆序入站
+            for (int i = node.children.size() - 1; i >= 0; --i) {
+                stack.push(node.children.get(i));
             }
         }
         return res;

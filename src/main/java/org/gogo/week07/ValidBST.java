@@ -64,4 +64,17 @@ public class ValidBST {
         // 右子树处理，高位不变，低位为每次递归的跟界定，跟节点满足小于所有右子树节点结果是true否则是false
         return isValidBST(root.left, lower, root.val) && isValidBST(root.right, root.val, upper);
     }
+
+
+    private boolean dfs(TreeNode root, long lower, long upper) {
+        if (root == null) {
+            return true;
+        }
+        // 终止条件
+        if (root.val <= lower || root.val >= upper) {
+            return false;
+        }
+        // 左右子树处理
+        return dfs(root.left, lower, root.val) && dfs(root.right, root.val, upper);
+    }
 }

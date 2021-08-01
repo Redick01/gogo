@@ -29,24 +29,6 @@ public class NPostorderTraversal {
         plan2(node);
     }
 
-    public List<Integer> test1(Node root) {
-        List<Integer> res = new ArrayList<>();
-        if (root == null) {
-            return res;
-        }
-        post(root, res);
-        return res;
-    }
-
-    private void post(Node root, List<Integer> res) {
-        for (Node node : root.children) {
-            if (node != null) {
-                post(node, res);
-            }
-        }
-        res.add(root.val);
-    }
-
     /**
      * 递归
      * @param root
@@ -86,6 +68,42 @@ public class NPostorderTraversal {
             res.addFirst(node.val);
             for (int i = 0; i < node.children.size(); i++) {
                 stack.push(node.children.get(i));
+            }
+        }
+        return res;
+    }
+
+    public List<Integer> test(Node root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        List<Integer> res = new ArrayList<>();
+        dfs(root, res);
+        return res;
+    }
+
+    private void dfs(Node root, List<Integer> res) {
+        for (Node node : root.children) {
+            if (node != null) {
+                dfs(node, res);
+            }
+        }
+        res.add(root.val);
+    }
+
+
+    public List<Integer> test1(Node root) {
+        LinkedList<Integer> res = new LinkedList<>();
+        if (root == null) {
+            return res;
+        }
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
+            res.addFirst(node.val);
+            for (Node cNode : node.children) {
+                stack.push(cNode);
             }
         }
         return res;

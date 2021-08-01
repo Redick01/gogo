@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
+ * 二叉树后续遍历
  * @author liupenghui
  * @date 2021/7/18 5:56 下午
  */
@@ -120,6 +121,33 @@ public class PostorderTraversal {
             }
         }
         Collections.reverse(res);
+        return res;
+    }
+
+    public static List<Integer> test1(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> res = new ArrayList<>();
+        TreeNode node = null;
+        while (root != null || !stack.isEmpty()) {
+            // 处理左子树
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            //处理左子树
+            root = stack.pop();
+            if (root == node || root.right == null) {
+                res.add(root.val);
+                node = root;
+                root = null;
+            } else {
+                stack.add(root);
+                root = root.right;
+            }
+        }
         return res;
     }
 }
