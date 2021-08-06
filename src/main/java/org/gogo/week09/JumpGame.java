@@ -23,6 +23,19 @@ package org.gogo.week09;
  */
 public class JumpGame {
 
+    public boolean test1(int[] nums) {
+        if (null == nums) {
+            return false;
+        }
+        int endReachable = nums.length - 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (nums[i] + i >= endReachable) {
+                endReachable = i;
+            }
+        }
+        return endReachable == 0;
+    }
+
     /**
      * 贪心算法，从后往前贪心
      * @param nums
