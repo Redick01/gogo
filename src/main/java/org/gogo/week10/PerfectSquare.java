@@ -25,14 +25,32 @@ package org.gogo.week10;
  */
 public class PerfectSquare {
 
-    public boolean isPerfectSquare(int num) {
+    public static void main(String[] args) {
+        System.out.println(new PerfectSquare().plan2(14));
+    }
+
+    public boolean plan1(int num) {
+        int i = 1;
+        while(num > 0) {
+            num -= i;
+            i += 2;
+        }
+        return num==0;
+    }
+
+    public boolean plan2(int num) {
         if (0 == num || 1 == num) {
             return true;
         }
         int left = 1, right = num;
-        while (left < right) {
-
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (num / mid > mid) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
         }
-        return true;
+        return left * left == num;
     }
 }
