@@ -32,6 +32,41 @@ package org.gogo.week10;
  */
 public class SearchRotateArray {
 
+    public static void main(String[] args) {
+        new SearchRotateArray().plan1(new int[]{1, 3}, 1);
+    }
+
+    public int test1(int[] nums, int target) {
+        int len = nums.length;
+        if (len == 0) {
+            return -1;
+        }
+        if (len == 1 && nums[0] == target) {
+            return 0;
+        }
+        int left = 0, right = len - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (target == nums[mid]) {
+                return mid;
+            }
+            if (nums[0] <= nums[mid]) {
+                if (nums[0] <= target && target < nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                if (nums[mid] < target && target <= nums[len - 1]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
     /**
      * 二分查找
      * @param nums
@@ -47,7 +82,7 @@ public class SearchRotateArray {
             return target == nums[0] ? 0 : -1;
         }
         int left = 0, right = len - 1;
-        while (left < right) {
+        while (left <= right) {
             int mid = (left + right) / 2;
             if (nums[mid] == target) {
                 return mid;
@@ -60,7 +95,7 @@ public class SearchRotateArray {
                     left = mid + 1;
                 }
             } else {
-                if (nums[mid] < target && target <= nums[left - 1]) {
+                if (nums[mid] < target && target <= nums[len - 1]) {
                     left = mid + 1;
                 } else {
                     right = mid - 1;
