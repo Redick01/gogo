@@ -10,6 +10,19 @@ public class PowXN {
         System.out.println(new PowXN().plan2(1, -2147483648));
     }
 
+    public double test1(double x, int n) {
+        return n > 0 ? myPow2(x, n) : 1.0 / myPow2(x, -n);
+    }
+
+    public double myPow2(double x, int n) {
+        if (n == 0) {
+            return 1;
+        }
+        double res = myPow2(x, n / 2);
+        return n % 2 == 0 ? res * res : res * res * x;
+    }
+
+
     public double test(double x, int n) {
         return n > 0 ? pow1(x, n) : 1.0 / pow1(x, -n);
     }

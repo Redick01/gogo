@@ -34,6 +34,19 @@ package org.gogo.week10;
  */
 public class FindMin {
 
+    public int test1(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < nums[right]) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return nums[left];
+    }
+
     /**
      * 二分查找
      * @param nums

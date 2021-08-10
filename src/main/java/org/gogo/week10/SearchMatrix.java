@@ -46,6 +46,23 @@ public class SearchMatrix {
         return false;
     }
 
+    public boolean test1(int[][] nums, int target) {
+        int m = nums.length, n = nums[0].length;
+        int left = 0, right = m * n - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int temp = nums[mid / n][mid % 2];
+            if (temp < target) {
+                left = mid + 1;
+            } else if (temp > target) {
+                right = mid - 1;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * 一次二分查找
      * 因为该题的特殊性，将二维数组每一行首尾相连是一个单调递增的数组，利用这个特性构建新数组二分

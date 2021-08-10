@@ -36,6 +36,37 @@ public class SearchRotateArray {
         new SearchRotateArray().plan1(new int[]{1, 3}, 1);
     }
 
+    public int test2(int[] nums, int target) {
+        int len = nums.length;
+        if (len == 0) {
+            return -1;
+        }
+        if (len == 1 && target == nums[0]) {
+            return 0;
+        }
+        int left = 0, right = len - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            }
+            if (nums[0] <= nums[mid]) {
+                if (nums[0] <= target && target < nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                if (nums[mid] < target && target <= nums[len - 1]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
     public int test1(int[] nums, int target) {
         int len = nums.length;
         if (len == 0) {
