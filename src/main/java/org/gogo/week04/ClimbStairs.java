@@ -97,17 +97,21 @@ public class ClimbStairs {
      * 1  2  3
      * p->q->r
      * 2  3  5
+     *
+     * DP方程
      * @param n
      * @return
      */
     public static int climbStairs2(int n) {
-        int[] db = new int[n + 1];
-        db[0] = 1;
-        db[1] = 1;
-
-        for (int i = 2; i <= n; i++) {
-            db[i] = db[i - 1] + db[i - 2];
+        if(n == 0) {
+            return 0;
         }
-        return db[n];
+        int[] nums = new int[n + 1];
+        nums[0] = 1;
+        nums[1] = 1;
+        for(int i = 2; i <= n; ++i) {
+            nums[i] = nums[i - 1] + nums[i - 2];
+        }
+        return nums[n - 1];
     }
 }
