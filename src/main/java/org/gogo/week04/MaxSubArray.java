@@ -61,7 +61,7 @@ public class MaxSubArray {
     public static int maxSubArray1(int[] nums) {
 
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i -1] > 0) {
+            if (nums[i - 1] > 0) {
                 nums[i] = nums[i - 1] + nums[i];
             }
         }
@@ -72,5 +72,19 @@ public class MaxSubArray {
             }
         }
         return result;
+    }
+
+    /**
+     * DP方程：dp[i] = max(num[i], num[i] + dp[i - 1])
+     * @param nums
+     * @return
+     */
+    public int dp(int[] nums) {
+        int pre = 0, max = nums[0];
+        for (int num : nums) {
+            pre = Math.max(pre + num, num);
+            max = Math.max(max, pre);
+        }
+        return max;
     }
 }
