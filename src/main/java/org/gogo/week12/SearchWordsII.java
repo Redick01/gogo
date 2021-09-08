@@ -32,7 +32,7 @@ public class SearchWordsII {
         Set<String> result = new HashSet<>();
         int m = board.length;
         int n = board[0].length;
-        boolean [][]visited = new boolean[m][n];
+        boolean [][] visited = new boolean[m][n];
         //遍历整个二维数组
         for(int i=0;i<board.length; i++){
             for (int j = 0; j < board [0].length; j++){
@@ -69,9 +69,19 @@ public class SearchWordsII {
 
 
     class TrieNode {
+        int count;
+        int prefix;
+        // 是否到节点末尾
         boolean end;
+        // 字母
         public String val;
+        // 初始化26个字母节点
         TrieNode[] trieNode = new TrieNode[26];
+
+        public TrieNode() {
+            this.count = 0;
+            this.prefix = 0;
+        }
     }
 
     class Trie {
@@ -86,6 +96,7 @@ public class SearchWordsII {
         public void insert(String word) {
             TrieNode p = root;
             for (int i = 0; i < word.length(); i++) {
+                // 计算在TrieNode中的位置
                 int u = word.charAt(i) - 'a';
                 if (p.trieNode[u] == null) {
                     p.trieNode[u] = new TrieNode();
@@ -95,5 +106,73 @@ public class SearchWordsII {
             p.end = true;
             p.val = word;
         }
+
+        public void insert(TrieNode root, String str){
+            if(root == null || str.length() == 0){
+                return;
+            }
+            char[] c = str.toCharArray();
+            for(int i = 0;i<str.length();i++){
+                //如果该分支不存在，创建一个新节点
+                if(root.trieNode[c[i] - 'a'] == null){
+                    root.trieNode[c[i] - 'a'] = new TrieNode();
+                }
+                root = root.trieNode[c[i] - 'a'];
+                root.prefix++;//注意，应该加在后面
+            }
+            //以该节点结尾的单词数+1
+            root.count++;
+        }
+
+        public int search(TrieNode trieNode, String str) {
+            if (trieNode == null || null == str || str.length() == 0) {
+                return -1;
+            }
+            char[] c = str.toCharArray();
+            for (int i = 0; i < c.length; i++) {
+                // 如果不存在，创建一个新的节点
+                if (trieNode.trieNode[c[i] - 'a'] == null) {
+                    return -1;
+                }
+                // 如果存在，则继续向下遍历
+                trieNode = trieNode.trieNode[c[i] - 'a'];
+            }
+            //如果到结尾,也说明该单词不存在
+            if (trieNode.count == 0) {
+                return -1;
+            }
+            return trieNode.count;
+        }
+
+        //查询以str为前缀的单词数量
+        public int searchPrefix(TrieNode root,String str){
+            if(root==null||str.length()==0){
+                return -1;
+            }
+            char[] c=str.toCharArray();
+            for(int i=0;i<str.length();i++){
+                //如果该分支不存在，表名该单词不存在
+                if(root.trieNode[c[i]-'a']==null){
+                    return -1;
+                }
+                //如果存在，则继续向下遍历
+                root = root.trieNode[c[i]-'a'];
+            }
+            return root.prefix;
+        }
+    }
+
+    public static void main(String[] args) {
+        String[] strings = {"tea", "teacher", "oda", "red", "black", "blue", "to", "two", "redick"};
+        new SearchWordsII().insert(strings);
+    }
+
+    public void insert(String[] strings) {
+        Trie trie = new Trie();
+        TrieNode trieNode = new TrieNode();
+        for (String s : strings) {
+            trie.insert(trieNode, s);
+        }
+        System.out.println(trie.searchPrefix(trieNode, "t"));
     }
 }
