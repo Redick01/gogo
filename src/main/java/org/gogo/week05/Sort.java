@@ -6,6 +6,11 @@ package org.gogo.week05;
  */
 public class Sort {
 
+    public static void main(String[] args) {
+        int[] array = {2, 3, 4, 1, 423, 21, 41, 45, 78};
+        new Sort().selectSort(array);
+    }
+
     /**
      * 快速排序
      * @param n
@@ -99,5 +104,47 @@ public class Sort {
         }
         // 返回结果数组
         return result;
+    }
+
+
+    public void maoPao(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i] > array[j]) {
+                    int temp = 0;
+                    temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
+    public void insertSort(int[] array) {
+        for (int i = 1; i < array.length; i++) {
+            int preIndex = i - 1;
+            int current = array[i];
+            while (preIndex >= 0 && array[preIndex] > current) {
+                array[preIndex + 1] = array[preIndex];
+                preIndex--;
+            }
+            array[preIndex + 1] = current;
+        }
+    }
+
+    public void selectSort(int[] array) {
+        int temp = 0;
+        int minIndex = 0;
+        for (int i = 0; i < array.length - 1; i++) {
+            minIndex = i;
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[j] < array[minIndex]) {
+                    minIndex = j;
+                }
+            }
+            temp = array[i];
+            array[i] = array[minIndex];
+            array[minIndex] = temp;
+        }
     }
 }
