@@ -44,4 +44,17 @@ public class AddOne {
         digits[0] = 1;
         return digits;
     }
+
+    public static int[] addOne1(int[] array) {
+        for (int i = array.length - 1; i >= 0; i--) {
+            array[i]++;
+            array[i] = array[i] % 10;
+            if (array[i] != 0) {
+                return array;
+            }
+        }
+        array = new int[array.length + 1];
+        array[0] = 1;
+        return array;
+    }
 }

@@ -3,6 +3,8 @@ package org.gogo.week05;
 import java.util.Stack;
 
 /**
+ * 84. 柱状图中最大的矩形
+ *
  * @author liupenghui
  * @date 2021/7/11 8:56 下午
  */
@@ -10,7 +12,7 @@ public class LargestRectangleArea {
 
     public static void main(String[] args) {
         int[] height = {2,1,5,6,2,3};
-        System.out.println(test6(height));
+        System.out.println(largestRectangleArea(height));
     }
 
     public static int test6(int[] nums) {
@@ -147,6 +149,27 @@ public class LargestRectangleArea {
         return maxAre;
     }
 
+    public int baoLi(int[] array) {
+        int len = array.length;
+        if (len == 0) {
+            return 0;
+        }
+        int maxArea = 0;
+        for (int i = 0; i < len; i++) {
+            int height = array[i];
+            int left = i;
+            int right = i;
+            while (left > 0 && array[left - 1] >= height) {
+                left--;
+            }
+            while (right < len - 1 && array[right + 1] >= height) {
+                right++;
+            }
+            maxArea = Math.max(maxArea, (right - left + 1) * height);
+        }
+        return maxArea;
+    }
+
     /**
      * 暴力解法1
      * 枚举数组元素
@@ -194,9 +217,7 @@ public class LargestRectangleArea {
             return heights[0];
         }
         int[] newHeights = new int[length + 2];
-        for (int i = 0; i < length; i++) {
-            newHeights[i + 1] = heights[i];
-        }
+        System.arraycopy(heights, 0, newHeights, 1, length);
         length = length + 2;
         heights = newHeights;
         // 存储的是条形图索引
@@ -213,6 +234,35 @@ public class LargestRectangleArea {
                 maxArea = Math.max(maxArea, high * width);
             }
             // 条形图越来越多就将数组下标压栈，数组越来越大还确定不了右边界，继续向右遍历
+            stack.add(i);
+        }
+        return maxArea;
+    }
+
+
+    public int stackRaise(int[] heights) {
+        int len = heights.length;
+        if (len == 0) {
+            return 0;
+        }
+        if (len == 1) {
+            return heights[0];
+        }
+        int[] newHeights = new int[len + 2];
+        System.arraycopy(heights, 0, newHeights, 1, len);
+        heights = newHeights;
+        // 存储单调递增的高度的矩形的数组下标，意味着矩形高度单调递增
+        Stack<Integer> stack = new Stack<>();
+        stack.add(0);
+        int maxArea = 0;
+        for (int i = 1; i < len + 2; i++) {
+            // 维护单调递增栈，发现违反单调性就计算面积
+            while (heights[stack.peek()] > heights[i]) {
+                int height = heights[stack.pop()];
+                int width = i - stack.peek() - 1;
+                maxArea = Math.max(maxArea, height * width);
+            }
+            // 满足单调性，压栈
             stack.add(i);
         }
         return maxArea;
