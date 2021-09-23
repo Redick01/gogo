@@ -8,7 +8,7 @@ public class Sort {
 
     public static void main(String[] args) {
         int[] array = {2, 3, 4, 1, 423, 21, 41, 45, 78};
-        new Sort().selectSort(array);
+        new Sort().quickSort(array, 0, array.length - 1);
     }
 
     /**
@@ -17,16 +17,16 @@ public class Sort {
      * @param left
      * @param right
      */
-    public static void quickSort(int[] n,int left,int right) {
+    public void quickSort(int[] n,int left,int right) {
         int dp;
         if (left < right) {
-            dp = partition(n, left, right);
+            dp = partition1(n, left, right);
             quickSort(n, left, dp - 1);
             quickSort(n, dp + 1, right);
         }
     }
 
-    public static int partition(int n[], int left, int right) {
+    public static int partition(int[] n, int left, int right) {
         int pivot = n[left];
         while (left < right) {
             while (left < right && n[right] >= pivot)
@@ -39,6 +39,26 @@ public class Sort {
                 n[right--] = n[left];
         }
         n[left] = pivot;
+        return left;
+    }
+
+    public int partition1(int[] array, int left, int right) {
+        int pivot = array[left];
+        while (left < right) {
+            while (left < right && array[right] > pivot) {
+                right--;
+            }
+            if (left < right) {
+                array[left++] = array[right];
+            }
+            while (left < right && array[left] < pivot) {
+                left++;
+            }
+            if (left < right) {
+                array[right--] = array[left];
+            }
+        }
+        array[left] = pivot;
         return left;
     }
 
@@ -120,10 +140,14 @@ public class Sort {
         }
     }
 
+
     public void insertSort(int[] array) {
         for (int i = 1; i < array.length; i++) {
             int preIndex = i - 1;
+            // 当前索引i的数据
             int current = array[i];
+            // 有序数组从后往前扫描，索引要大于等于0防止越界
+            // 从后向前扫描，扫描，待处理数据current在已排序队列中找，发现current大于已排序队列数据就将数据插进去
             while (preIndex >= 0 && array[preIndex] > current) {
                 array[preIndex + 1] = array[preIndex];
                 preIndex--;
