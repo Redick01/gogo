@@ -10,7 +10,7 @@ import java.util.*;
 public class LetterCombinations {
 
     public static void main(String[] args) {
-        List<String> list = new LetterCombinations().test2("234");
+        List<String> list = new LetterCombinations().plan1("234");
         System.out.println(list.toString());
     }
 

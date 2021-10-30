@@ -11,6 +11,31 @@ import java.util.*;
  */
 public class BinaryLevelOrder {
 
+    public List<List<Integer>> test2(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Queue<TreeNode> nodes = new LinkedList<>();
+        nodes.add(root);
+        while (!nodes.isEmpty()) {
+            int level = nodes.size();
+            List<Integer> levelRes = new ArrayList<>();
+            for (int i = 0; i < level; i++) {
+                TreeNode node = nodes.poll();
+                levelRes.add(node.val);
+                if (node.left != null) {
+                    nodes.add(node.left);
+                }
+                if (node.right != null) {
+                    nodes.add(node.right);
+                }
+            }
+            res.add(levelRes);
+        }
+        return res;
+    }
+
     public List<List<Integer>> test1(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) {
