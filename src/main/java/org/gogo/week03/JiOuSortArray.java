@@ -25,6 +25,27 @@ public class JiOuSortArray {
         }
     }
 
+    public static int[] sortJO(int[] arrays) {
+        int[] result = new int[arrays.length];
+        // 偶数
+        int index = 0;
+        for (int a : arrays) {
+            if (a % 2 == 0) {
+                result[index] = a;
+                index += 2;
+            }
+        }
+        // 奇数
+        index = 1;
+        for (int a : arrays) {
+            if (a % 2 == 1) {
+                result[index] = a;
+                index += 2;
+            }
+        }
+        return result;
+    }
+
     public static int[] sortArrayByParityII(int[] A) {
 
         int[] result = new int[A.length];

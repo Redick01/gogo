@@ -17,4 +17,15 @@ public class IntegerReverse {
         }
         return (result < Integer.MIN_VALUE || result > Integer.MAX_VALUE) ? 0 : (int) result;
     }
+
+
+
+    public int rev(int val) {
+        int result = 0;
+        while (val != 0) {
+            result = result * 10 + val % 10;
+            val /= 10;
+        }
+        return (result < Integer.MIN_VALUE || result > Integer.MAX_VALUE) ? 0 : result;
+    }
 }

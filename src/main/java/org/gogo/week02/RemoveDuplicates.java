@@ -7,8 +7,23 @@ public class RemoveDuplicates {
 
     public static void main(String[] args) {
         int[] nums = {1,1,2,2,3,3,4,5};
-        System.out.println(test5(nums));
+        System.out.println(test6(nums));
         //System.out.println(getRabbitNum(6));
+    }
+
+    public static int test6(int[] nums) {
+        int len = nums.length;
+        if (len == 0) {
+            return 0;
+        }
+        int index = 0;
+        for (int i = 1; i < len; i++) {
+            if (nums[index] != nums[i]) {
+                index++;
+                nums[index] = nums[i];
+            }
+        }
+        return index + 1;
     }
 
     public static int test5(int[] nums) {
