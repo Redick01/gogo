@@ -38,6 +38,17 @@ public class RemoveElement {
         int val = 2;
     }
 
+    public int test1(int[] nums, int val) {
+        int i = 0;
+        for (int j = 0; j < nums.length; j++) {
+            if (nums[i] == val) {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        return i;
+    }
+
     /**
      * 思路，双指针法而
      * @param nums

@@ -15,6 +15,24 @@ import java.util.*;
  */
 public class RightBrackets {
 
+
+    public static boolean isValid1(String s) {
+        // s = "()()(){}{}{}[][][]"
+        Deque<Character> deque = new ArrayDeque<>();
+        char[] chars = s.toCharArray();
+        for (char c : chars) {
+            if (!deque.isEmpty()) {
+                char t = deque.getLast();
+                if ((t == '(' && c == ')') || (t == '[' && c == ']') || (t == '{' && c == '}')) {
+                    deque.removeLast();
+                    continue;
+                }
+            }
+            deque.addLast(c);
+        }
+        return deque.isEmpty();
+    }
+
     public static boolean test3(String s) {
         if (s.length() % 2 != 0) {
             return false;
@@ -37,7 +55,7 @@ public class RightBrackets {
     }
 
     public static void main(String[] args) {
-        System.out.println(test3("()"));
+        System.out.println(isValid1("()()(){}{}{}[][][]"));
     }
 
     public static boolean test1(String s) {

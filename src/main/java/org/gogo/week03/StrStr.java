@@ -25,9 +25,23 @@ public class StrStr {
         System.out.println(strStr(haystack, needle));
     }
 
+    public static int strStr1(String haystack, String needle) {
+        if (haystack.length() < needle.length()) {
+            return -1;
+        }
+        int index = haystack.length() - needle.length() + 1;
+        for (int i = 0; i < index; ++i) {
+            String str = haystack.substring(i, i + needle.length());
+            if (str.equals(needle)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static int strStr(String haystack, String needle) {
         /*
-        计算index的规律
+        计算index的规律,
          */
         int index = haystack.length() - needle.length() + 1;
         for (int i = 0; i < index; ++i) {
