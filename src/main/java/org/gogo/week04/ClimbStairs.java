@@ -2,17 +2,17 @@ package org.gogo.week04;
 
 /**
  * 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
- *
+ * <p>
  * 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
- *
+ * <p>
  * 注意：给定 n 是一个正整数。
- *
+ * <p>
  * 输入： 2
  * 输出： 2
  * 解释： 有两种方法可以爬到楼顶。
  * 1.  1 阶 + 1 阶
  * 2.  2 阶
- *
+ * <p>
  * 输入： 3
  * 输出： 3
  * 解释： 有三种方法可以爬到楼顶。
@@ -26,11 +26,28 @@ package org.gogo.week04;
 public class ClimbStairs {
 
     public static void main(String[] args) {
-        System.out.println(test1(5));
+        System.out.println(climbStairs(5));
+    }
+
+    public static int test1121(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        // f(n) = f(n - 1) + f(n - 2)
+        // 动态规划
+        // dp[n] = dp[n - 1] + dp[n - 2]
+        int[] nums = new int[n + 1];
+        nums[0] = 1;
+        nums[1] = 2;
+        for (int i = 2; i < n; i++) {
+            nums[i] = nums[i - 1] + nums[i - 2];
+        }
+        return nums[n - 1];
     }
 
     /**
      * 当n较小时候适用于递归算法，斐波那契数列
+     *
      * @param n
      * @return
      */
@@ -76,6 +93,7 @@ public class ClimbStairs {
      * 1  2  3
      * p->q->r
      * 2  3  5
+     *
      * @param n
      * @return
      */
@@ -97,19 +115,20 @@ public class ClimbStairs {
      * 1  2  3
      * p->q->r
      * 2  3  5
-     *
+     * <p>
      * DP方程
+     *
      * @param n
      * @return
      */
     public static int climbStairs2(int n) {
-        if(n == 0) {
+        if (n == 0) {
             return 0;
         }
         int[] nums = new int[n + 1];
         nums[0] = 1;
         nums[1] = 1;
-        for(int i = 2; i <= n; ++i) {
+        for (int i = 2; i <= n; ++i) {
             nums[i] = nums[i - 1] + nums[i - 2];
         }
         return nums[n - 1];

@@ -3,6 +3,7 @@ package org.gogo.week04;
 import java.util.Arrays;
 
 /**
+ * 53. 最大子序和
  * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
  *
  * 示例:
@@ -24,7 +25,29 @@ public class MaxSubArray {
         System.out.println(maxSubArray1(nums));
     }
 
+    public static int test1(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i - 1] > 0) {
+                nums[i] = nums[i - 1] + nums[i];
+            }
+        }
+        int res = Integer.MIN_VALUE;
+        for (int num : nums) {
+            if (num > res) {
+                res = num;
+            }
+        }
+        return res;
+    }
+
     /**
+     * dp[i] = dp[i] + dp[i - 1]
      * 最笨的方法，三层循环，数据量多了就完了
      * @param nums
      * @return

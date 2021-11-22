@@ -1,16 +1,51 @@
 package org.gogo.week04;
 
+
 /**
+ * 删除排序链表中的重复元素
+ *
  * @Author Redick
  * @Date 2020/11/21 10:29 上午
  */
 public class DeleteSameNode {
+
+
+
+    public ListNode test2(ListNode head) {
+        ListNode dummy = head;
+        while (dummy != null && dummy.next != null) {
+            if (dummy.val == dummy.next.val) {
+                dummy.next = dummy.next.next;
+            } else {
+                dummy = dummy.next;
+            }
+        }
+
+        return head;
+    }
+
+
+
+
 
     public static void main(String[] args) {
         ListNode listNode = new ListNode(1);
         listNode.next = new ListNode(1);
         listNode.next.next = new ListNode(2);
         deleteDuplicates(listNode);
+    }
+
+
+    public ListNode test1(ListNode head) {
+        ListNode dummy = head;
+        while (dummy != null && dummy.next != null) {
+            if (dummy.val == dummy.next.val) {
+                dummy.next = dummy.next.next;
+            } else {
+                dummy = dummy.next;
+            }
+        }
+        return head;
     }
 
     /**
@@ -35,6 +70,9 @@ public class DeleteSameNode {
         return head;
     }
 }
+
+
+
 class ListNode {
 
     int val;
