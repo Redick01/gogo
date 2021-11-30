@@ -1,5 +1,7 @@
 package org.gogo.week05;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,9 +25,71 @@ import java.util.Set;
  */
 public class LongestSubStr {
 
+    public static int test3(String s) {
+        if (s.length() == 0 || s.length() == 1) {
+            return s.length();
+        }
+        int n = s.length();
+        int subStrLength = 0;
+        int right = -1;
+        Set<Character> set = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            if (i != 0) {
+                set.remove(s.charAt(i - 1));
+            }
+            while (right + 1 < n && !set.contains(s.charAt(right + 1))) {
+                set.add(s.charAt(right + 1));
+                ++right;
+            }
+            subStrLength = Math.max(subStrLength, right - i + 1);
+        }
+        return subStrLength;
+    }
+
+    public static int test2(String s) {
+        if (s.length() == 0 || s.length() == 1) {
+            return s.length();
+        }
+        int n = s.length();
+        int subStrLength = 0;
+        int right = -1;
+        Set<Character> set = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            if (i != 0 ) {
+                set.remove(s.charAt(i - 1));
+            }
+            while (right + 1 < n && !set.contains(s.charAt(right + 1))) {
+                set.add(s.charAt(right + 1));
+                ++right;
+            }
+            subStrLength = Math.max(subStrLength, right - i + 1);
+        }
+        return subStrLength;
+    }
+
     public static void main(String[] args) {
         String s = "pwwkew";
-        System.out.println(lengthOfLongestSubstring(s));
+        System.out.println(test2(s));
+    }
+
+    public static int test1(String s) {
+        if (s.length() == 1 || s.length() == 0) {
+            return s.length();
+        }
+        Set<Character> set = new HashSet<>();
+        int right = -1;
+        int maxSubStrLen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (i != 0) {
+                set.remove(s.charAt(i - 1));
+            }
+            while (right + 1 < s.length() && !set.contains(s.charAt(right + 1))) {
+                set.add(s.charAt(right + 1));
+                ++right;
+            }
+            maxSubStrLen = Math.max(maxSubStrLen, right - i + 1);
+        }
+        return maxSubStrLen;
     }
 
     /**

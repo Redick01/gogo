@@ -11,6 +11,18 @@ public class AddOne {
         test2(digits);
     }
 
+    public static int[] test3(int[] digits) {
+        for (int i = 0; i < digits.length; i++) {
+            digits[i]++;
+            if (digits[i] % 10 != 0) {
+                return digits;
+            }
+        }
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
+    }
+
     public static int[] test2(int[] digits) {
         int len = digits.length;
         for (int i = len - 1; i >=0; i--) {

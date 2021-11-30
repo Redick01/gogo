@@ -1,10 +1,13 @@
 package org.gogo.week05;
 
 /**
+ * 归并排序
  * @author Redick
  * @date 2021/9/15 11:23 下午
  */
 public class MergeSort {
+
+
 
     public static void main(String[] args) {
         int[] array = {2, 3, 4, 1, 423, 21, 41, 45, 78};

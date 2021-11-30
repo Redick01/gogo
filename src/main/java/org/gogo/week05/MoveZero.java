@@ -21,6 +21,20 @@ package org.gogo.week05;
  */
 public class MoveZero {
 
+
+    public static int[] test1(int[] nums) {
+        int index = 0;
+        for (int num : nums) {
+            if (num != 0) {
+                nums[index++] = num;
+            }
+        }
+        for (int i = index; i < nums.length; i++) {
+            nums[i] = 0;
+        }
+        return nums;
+    }
+
     public static void main(String[] args) {
         int[] nums = {0,1,0,3,12};
         nums = times_2(nums);
@@ -28,6 +42,7 @@ public class MoveZero {
             System.out.println(num);
         }
     }
+
 
     public static int[] times_2(int[] nums) {
         // 记录移动非0元素的索引index

@@ -35,6 +35,19 @@ package org.gogo.week05;
  */
 public class PlusOne {
 
+    public static int[] plusOne1(int[] digits) {
+        for (int i = digits.length - 1; i >=0 ; i--) {
+            digits[i]++;
+            digits[i] = digits[i] % 10;
+            if (digits[i] != 0) {
+                return digits;
+            }
+        }
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
+    }
+
     /**
      * 太巧妙了
      * 因为元素就是1-9，所以+1最大是10
@@ -60,7 +73,7 @@ public class PlusOne {
     }
 
     public static void main(String[] args) {
-        int[] digits = plusOne(new int[]{9,9,9});
+        int[] digits = plusOne1(new int[]{9,9,9});
         for (int i : digits) {
             System.out.println(i);
         }
