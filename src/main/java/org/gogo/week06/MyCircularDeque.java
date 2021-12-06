@@ -5,6 +5,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 /**
+ * 设计循环双端队列
  * 实现环形队列
  * 实现方案，用Deque实现即可，注意定义队列容量
  * @author liupenghui

@@ -11,8 +11,8 @@ import java.util.*;
  */
 public class MinStack {
 
-    private Deque<Integer> stack;
-    private Deque<Integer> minValStack;
+    private final Deque<Integer> stack;
+    private final Deque<Integer> minValStack;
 
 
     /** initialize your data structure here. */
@@ -24,7 +24,7 @@ public class MinStack {
 
     public void push(int val) {
         stack.push(val);
-        minValStack.push(Math.min(val, minValStack.pop()));
+        minValStack.push(Math.min(val, minValStack.peek()));
     }
 
     public void pop() {

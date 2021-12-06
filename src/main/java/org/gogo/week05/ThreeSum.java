@@ -25,6 +25,35 @@ public class ThreeSum {
         List<List<Integer>> lists = plan2(nums);
     }
 
+    public static List<List<Integer>> test1(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int k = 0; k < nums.length - 1; k++) {
+            if (nums[k] > 0) {
+                break;
+            }
+            if (k > 0 && nums[k] == nums[k - 1]) {
+                continue;
+            }
+            for (int i = k + 1, j = nums.length - 1; i < j;) {
+                if (nums[k] + nums[i] < -nums[j]) {
+                    while (i < j && nums[i] == nums[++i]);
+                } else if (nums[k] + nums[i] > -nums[j]) {
+                    while (i < j && nums[j] == nums[--j]);
+                } else if (nums[k] + nums[i] == -nums[j]) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(nums[i]);
+                    list.add(nums[j]);
+                    list.add(nums[k]);
+                    while(i < j && nums[i] == nums[++i]);
+                    while(i < j && nums[j] == nums[--j]);
+                    result.add(list);
+                }
+            }
+        }
+        return result;
+    }
+
     /**
      * 暴力解法，三层循环
      * @param nums
