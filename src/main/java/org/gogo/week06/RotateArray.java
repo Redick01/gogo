@@ -2,8 +2,6 @@ package org.gogo.week06;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.List;
-import java.util.Stack;
 
 /**
  * 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
@@ -40,6 +38,31 @@ import java.util.Stack;
  */
 public class RotateArray {
 
+    public void test5(int[] nums, int k) {
+        int[] newNums = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            newNums[(k + i) % nums.length] = nums[i];
+        }
+        System.arraycopy(newNums, 0, nums, 0, nums.length);
+    }
+
+    public void test4(int[] nums, int k) {
+        k %= nums.length;
+        rev(nums, 0, nums.length - 1);
+        rev(nums, 0, k - 1);
+        rev(nums, k, nums.length - 1);
+    }
+
+    public void rev(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start += 1;
+            end -= 1;
+        }
+    }
+
     public int[] test1(int[] nums, int k) {
         int len = nums.length;
         int[] newArray = new int[len];
@@ -71,8 +94,9 @@ public class RotateArray {
 
 
     public static void main(String[] args) {
+        System.out.println(3 % 7);
         int[] nums = {1,2,3,4,5,6,7};
-        new RotateArray().test2(nums, 8);
+        new RotateArray().test4(nums, 8);
         for (int i : nums) {
             System.out.println(i);
         }
@@ -105,7 +129,7 @@ public class RotateArray {
      * @param nums
      * @param k
      */
-    public static void plan3(int[] nums, int k) {
+    public void plan3(int[] nums, int k) {
         k %= nums.length;
         reverse(nums, 0, nums.length - 1);
         reverse(nums, 0, k - 1);

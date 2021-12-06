@@ -11,6 +11,26 @@ import java.util.Stack;
  */
 public class SlidingWindowMaximum {
 
+    public int[] test2(int[] nums, int k) {
+        int windowCount = nums.length - k + 1;
+        int[] res = new int[windowCount];
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int right = 0; right < nums.length; right++) {
+            while (!deque.isEmpty() && nums[right] >= nums[deque.getLast()]) {
+                deque.removeLast();
+            }
+            deque.addLast(right);
+            int left = right - k + 1;
+            if (left > deque.getFirst()) {
+                deque.removeFirst();
+            }
+            if (right + 1 >= k) {
+                res[left] = nums[deque.getFirst()];
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         int[] nums = {1,3,-1,-3,5,3,6,7};
         int[] max = maxSlidingWindow(nums, 3);

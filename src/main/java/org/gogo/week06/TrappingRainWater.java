@@ -12,6 +12,28 @@ import java.util.Stack;
  */
 public class TrappingRainWater {
 
+    public int test6(int[] nums) {
+        if (nums.length <= 2) {
+            return 0;
+        }
+        int area = 0;
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < nums.length; i++) {
+            while (!stack.isEmpty() && nums[i] > nums[stack.peek()]) {
+                int top = stack.pop();
+                if (stack.isEmpty()) {
+                    break;
+                }
+                int left = stack.peek();
+                int width = i - left - 1;
+                int minHeight = Math.min(nums[i], nums[left]) - nums[top];
+                area += width * minHeight;
+            }
+            stack.push(i);
+        }
+        return area;
+    }
+
 
     public static void main(String[] args) {
         int[] nums = {4, 2, 0, 3, 2, 5};
