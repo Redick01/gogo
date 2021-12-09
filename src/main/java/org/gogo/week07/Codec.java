@@ -13,12 +13,39 @@ import java.util.Queue;
  */
 public class Codec {
 
+    public String serialized(TreeNode root) {
+        if (root == null) {
+            return "NULL";
+        }
+        return root.val + "," + serialized(root.left) + "," + serialize(root.right);
+    }
+
+    public TreeNode deserialized(String data) {
+        if ("NULL".equals(data)) {
+            return null;
+        }
+        LinkedList<String> list = new LinkedList<>(Arrays.asList(data.split(",")));
+        return des(list);
+    }
+
+    private TreeNode des(LinkedList<String> list) {
+        String value = list.poll();
+        if ("NULL".equals(value)) {
+            return null;
+        }
+        TreeNode treeNode = new TreeNode(Integer.parseInt(value));
+        treeNode.left = des(list);
+        treeNode.right = des(list);
+        return treeNode;
+    }
+
+
     public String serializeTest1(TreeNode root) {
         // 终止条件
         if (root == null) {
             return "NULL";
         }
-        return root.val + "," + serialize(root.left) + "," + serialize(root.right);
+        return root.val + "," + serializeTest1(root.left) + "," + serializeTest1(root.right);
     }
 
     public TreeNode deserializeTest1(String data) {

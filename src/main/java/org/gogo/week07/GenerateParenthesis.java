@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 22. 括号生成
  * 数字n代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
  *
  *  
@@ -21,6 +21,41 @@ import java.util.List;
  * @date 2021/7/21 11:23 下午
  */
 public class GenerateParenthesis {
+
+
+    private List<String> test11(int n) {
+        List<String> res = new ArrayList<>();
+        recursion(0, 0, n, res, "");
+        return res;
+    }
+
+    public void recursion1(int left, int right, int n, List<String> res, String s) {
+        // 终止条件
+        if (left == 0 && right == 0) {
+            res.add(s);
+            return;
+        }
+        if (left > 0) {
+            recursion1(left - 1, right, n - 1, res, s + "(");
+        }
+        if (right > left) {
+            recursion1(left, right - 1, n - 1, res, s + ")");
+        }
+    }
+
+    public void recursion(int left, int right, int n, List<String> res, String s) {
+        // 终止条件
+        if (left == n && right == n) {
+            res.add(s);
+            return;
+        }
+        if (left < n) {
+            recursion(left + 1, right, n, res, "(");
+        }
+        if (left < right) {
+            recursion(left, right + 1, n, res, ")");
+        }
+    }
 
     public static void main(String[] args) {
         new GenerateParenthesis().test2(3);
