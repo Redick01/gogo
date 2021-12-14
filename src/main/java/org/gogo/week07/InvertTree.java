@@ -12,6 +12,28 @@ import java.util.Queue;
  */
 public class InvertTree {
 
+    public TreeNode pp4(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            // 左右子树交换
+            TreeNode temp = queue.poll();
+            TreeNode left = temp.left;
+            temp.left = temp.right;
+            temp.right = left;
+            if (temp.left != null) {
+                queue.add(temp.left);
+            }
+            if (temp.right != null) {
+                queue.add(temp.right);
+            }
+        }
+        return root;
+    }
+
     public TreeNode pp3(TreeNode root) {
         if (root == null) {
             return null;

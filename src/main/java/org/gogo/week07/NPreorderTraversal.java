@@ -11,6 +11,37 @@ import java.util.*;
  */
 public class NPreorderTraversal {
 
+    public List<Integer> pp2(Node root) {
+        List<Integer> list = new ArrayList<>();
+        Deque<Node> deque = new ArrayDeque<>();
+        if (root != null) {
+            deque.add(root);
+        }
+        while (!deque.isEmpty()) {
+            Node cur = deque.removeLast();
+            list.add(cur.val);
+            for (Node node : root.children) {
+                deque.addFirst(node);
+            }
+        }
+        return list;
+    }
+
+    public List<Integer> pp1(Node root) {
+        List<Integer> list = new ArrayList<>();
+        dfspp1(root, list);
+        return list;
+    }
+
+    private void dfspp1(Node root, List<Integer> list) {
+        if (root != null) {
+            list.add(root.val);
+            for (Node node : root.children) {
+                dfspp1(node, list);
+            }
+        }
+    }
+
 
 
     /**

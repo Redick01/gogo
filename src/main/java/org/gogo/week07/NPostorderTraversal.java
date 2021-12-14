@@ -2,10 +2,7 @@ package org.gogo.week07;
 
 import org.gogo.Node;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * N 叉树后序遍历
@@ -13,6 +10,44 @@ import java.util.Stack;
  * @date 2021/7/18 5:55 下午
  */
 public class NPostorderTraversal {
+
+    public List<Integer> pp4(Node root) {
+        if (root == null) {
+            return Collections.emptyList();
+        }
+        LinkedList<Integer> list = new LinkedList<>();
+        Stack<Node> stack = new Stack<>();
+        stack.add(root);
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
+            list.addFirst(node.val);
+            for (int i = 0; i < node.children.size(); i++) {
+                stack.push(node.children.get(i));
+            }
+        }
+        return list;
+    }
+
+    public List<Integer> pp3(Node root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        List<Integer> list = new ArrayList<>();
+        dfspp3(root, list);
+        return list;
+    }
+
+    private void dfspp3(Node root, List<Integer> list) {
+        if (root != null) {
+            for (int i = 0; i < root.children.size(); i++) {
+                Node node = root.children.get(i);
+                if (node != null) {
+                    dfspp3(root, list);
+                }
+            }
+            list.add(root.val);
+        }
+    }
 
     public static void main(String[] args) {
         Node node = new Node(2);

@@ -12,6 +12,26 @@ import java.util.List;
  */
 public class NTreeLevelOrder {
 
+    public List<List<Integer>> pp1(Node root) {
+        List<List<Integer>> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
+        dfspp1(root, list, 0);
+        return list;
+    }
+
+    private void dfspp1(Node root, List<List<Integer>> list, int level) {
+        if (list.size() <= level) {
+            list.add(new ArrayList<>());
+        }
+        list.get(level).add(root.val);
+        for (Node node : root.children) {
+            dfspp1(node, list, level + 1);
+        }
+    }
+
+
     public static void main(String[] args) {
         List<List<Integer>> list = new ArrayList<>();
         if (list.size() <= 0) {
