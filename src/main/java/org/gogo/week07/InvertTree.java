@@ -12,6 +12,73 @@ import java.util.Queue;
  */
 public class InvertTree {
 
+    public TreeNode pp3(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            // 反转左右子树
+            TreeNode temp = queue.poll();
+            TreeNode left = temp.left;
+            temp.left = temp.right;
+            temp.right = left;
+            if (temp.left != null) {
+                queue.add(temp.left);
+            }
+            if (temp.right != null) {
+                queue.add(temp.right);
+            }
+        }
+        return root;
+    }
+
+
+    public TreeNode pp2(TreeNode node) {
+        if (node == null) {
+            return null;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            // 交换左右子树
+            TreeNode temp = queue.poll();
+            TreeNode left = temp.left;
+            temp.left = temp.right;
+            left.right = left;
+            if (temp.left != null) {
+                queue.add(temp.left);
+            }
+            if (temp.right != null) {
+                queue.add(temp.right);
+            }
+        }
+        return node;
+    }
+
+
+    public TreeNode pp1(TreeNode node) {
+        if (node == null) {
+            return null;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            TreeNode tempNode = queue.poll();
+            TreeNode left = tempNode.left;
+            tempNode.left = tempNode.right;
+            tempNode.right = left;
+            if (tempNode.left != null) {
+                queue.add(tempNode.left);
+            }
+            if (tempNode.right != null) {
+                queue.add(tempNode.right);
+            }
+        }
+        return node;
+    }
+
 
     public TreeNode bfs(TreeNode root) {
         if (root == null) {

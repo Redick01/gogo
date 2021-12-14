@@ -7,10 +7,54 @@ import java.util.List;
 import java.util.Stack;
 
 /**
+ * 二叉树中序遍历
  * @author liupenghui
  * @date 2021/7/18 4:11 下午
  */
 public class InorderTraversal {
+
+    public List<Integer> pp3(TreeNode node) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+            node = stack.pop();
+            res.add(node.val);
+            node = node.right;
+        }
+        return res;
+    }
+
+    public List<Integer> pp2(TreeNode node) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+            node = stack.pop();
+            res.add(node.val);
+            node = node.right;
+        }
+        return res;
+    }
+
+    public List<Integer> pp1(TreeNode node) {
+        List<Integer> res = new ArrayList<>();
+        dfs1(node, res);
+        return res;
+    }
+
+    public void dfs1(TreeNode node, List<Integer> res) {
+        dfs1(node.left, res);
+        res.add(node.val);
+        dfs1(node.right, res);
+    }
+
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(2);

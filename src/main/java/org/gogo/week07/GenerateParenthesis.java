@@ -22,6 +22,43 @@ import java.util.List;
  */
 public class GenerateParenthesis {
 
+    public List<String> test13(int n) {
+        List<String> list = new ArrayList<>();
+
+        return list;
+    }
+
+    public void ge1(int left, int right, int n, List<String> list, String str) {
+        if (left == n && right == n) {
+            list.add(str);
+            return;
+        }
+        if (left < n) {
+            ge1(left + 1, right, n, list, str + "(");
+        }
+        if (left < right) {
+            ge1(left, right + 1, n, list, str + ")");
+        }
+    }
+
+    public List<String> test12(int n) {
+        List<String> list = new ArrayList<>();
+        ge(0, 0, n, list, "");
+        return list;
+    }
+    public void ge(int left, int right, int n, List<String> list, String str) {
+        if (left == n && right == n) {
+            list.add(str);
+            return;
+        }
+        if (left > n) {
+            ge(left + 1, right, n, list, str +"(");
+        }
+        if (right > left) {
+            ge(left, right + 1, n, list, str + ")");
+        }
+    }
+
 
     private List<String> test11(int n) {
         List<String> res = new ArrayList<>();

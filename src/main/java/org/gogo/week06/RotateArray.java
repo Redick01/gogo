@@ -38,6 +38,26 @@ import java.util.Deque;
  */
 public class RotateArray {
 
+
+    public void test8(int[] nums, int k) {
+        // 计算步长
+        k %= nums.length;
+        rever(nums, 0, nums.length - 1);
+        rever(nums, 0, k - 1);
+        rever(nums, k, nums.length - 1);
+    }
+
+    public void rever(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = nums[start];
+        }
+    }
+
+
+
+
     public void test7(int[] nums, int k) {
         // 重新计算旋转步长
         k %= nums.length;

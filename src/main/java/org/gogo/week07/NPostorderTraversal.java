@@ -29,6 +29,40 @@ public class NPostorderTraversal {
         plan2(node);
     }
 
+    public List<Integer> pp2(Node root) {
+        if (root == null) {
+            return null;
+        }
+        LinkedList<Integer> list = new LinkedList<>();
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node node = stack.pop();
+            list.addFirst(node.val);
+            for (int i = 0; i < node.children.size(); i++) {
+                stack.push(node.children.get(i));
+            }
+        }
+        return list;
+    }
+
+    public List<Integer> pp1(Node root) {
+        List<Integer> res = new ArrayList<>();
+        dfspp1(root, res);
+        return res;
+    }
+
+    public void dfspp1(Node root, List<Integer> res) {
+        if (root != null) {
+            for (Node node : root.children) {
+                if (node != null) {
+                    dfspp1(root, res);
+                }
+            }
+            res.add(root.val);
+        }
+    }
+
     /**
      * 递归
      * @param root

@@ -5,11 +5,66 @@ import java.util.Deque;
 import java.util.Stack;
 
 /**
+ * 235643635
+ *
  * 滑动窗口最大值
  * @author liupenghui
  * @date 2021/7/12 11:04 下午
  */
 public class SlidingWindowMaximum {
+
+    public int[] test5(int[] nums, int k) {
+        int windowCount = nums.length - k + 1;
+        int[] res = new int[windowCount];
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int right = 0; right < nums.length; right++) {
+            while (!deque.isEmpty() && nums[right] > nums[deque.getLast()]) {
+                deque.removeLast();
+            }
+            deque.addLast(right);
+            int left = right - k + 1;
+            if (left > deque.getFirst()) {
+                deque.removeFirst();
+            }
+            if (right + 1 > k) {
+                res[left] = nums[deque.getFirst()];
+            }
+        }
+        return res;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public int[] test4(int[] nums, int k) {
+        int windowCount = nums.length - k + 1;
+        int[] res = new int[windowCount];
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int right = 0; right < nums.length; right++) {
+            while (!deque.isEmpty() && nums[right] > nums[deque.getLast()]) {
+                deque.removeLast();
+            }
+            deque.addLast(right);
+            int left = right - k + 1;
+            // 清理队列中不在窗口中的数据
+            if (left > deque.getFirst()) {
+                deque.removeFirst();
+            }
+            // 行程窗口了
+            if (right + 1 > k) {
+                res[left] = nums[deque.getFirst()];
+            }
+        }
+        return res;
+    }
 
     public int[] test3(int[] nums, int k) {
         // 计算窗口数量
@@ -115,4 +170,5 @@ public class SlidingWindowMaximum {
         }
         return result;
     }
+
 }
